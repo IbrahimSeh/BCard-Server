@@ -3,8 +3,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+const apiRouter = require("./routes/api");
 
 var app = express();
 
@@ -14,7 +13,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
 
+app.use("/api", apiRouter);
+app.use((req, res, next) => {
+    res.status(404).json({ err: "page not found app.js" });
+});
 module.exports = app;
