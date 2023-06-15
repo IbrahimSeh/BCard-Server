@@ -24,8 +24,9 @@ router.post("/", async (req, res) => {
         await registerUserValidation(req.body);
         req.body.password = await hashService.generateHash(req.body.password);
         req.body = normalizeUser(req.body);
+        // console.log('after normalization = ', req.body);
         await userQueriesModel.registerUser(req.body);
-        res.json({ msg: "register" });
+        res.json(req.body);
     } catch (err) {
         res.status(400).json(err);
     }
@@ -62,9 +63,58 @@ router.post("/login", async (req, res) => {
     }
 });
 
-router.get("/user", async (req, res) => {
+//http://localhost:8181/api/users
+router.get("/", async (req, res) => {
     try {
-        res.json({ "msg": "http://localhost:8182/api/users/user" });
+        const allUsers = await userQueriesModel.getAllUsers();
+        console.log('hfjerj');
+        res.json(allUsers);
+    } catch (err) {
+        res.status(400).json(err);
+    }
+});
+
+//http://localhost:8181/api/users/:id
+router.get("/:id", async (req, res) => {
+    try {
+        //! joi validation
+        const userFromDB = await userQueriesModel.getUserById(req.params.id);
+        //if userFromDB == null return admin
+        res.json(userFromDB);
+    } catch (err) {
+        res.status(400).json(err);
+    }
+});
+
+//http://localhost:8181/api/users/:id
+router.put("/:id", async (req, res) => {
+    console.log('put');
+    try {
+        //! joi validation
+        await registerUserValidation(req.body);
+        //check if user id exist in database
+        const userFromDB = await userQueriesModel.getUserById(req.params.id);
+        if (!userFromDB) {
+            res.json("given user  id does not exist in database")
+            throw new CustomError("given user  id does not exist in database");
+        }
+        //if the client side try to update email to exist email in DB , mongo will reject
+        //update data in DB
+        await userQueriesModel.findByIdAndUpdate(req.params.id, req.body);
+        res.json({ msg: "Done" });
+    } catch (err) {
+        res.status(400).json(err);
+    }
+});
+
+//http://localhost:8181/api/users/:id
+router.patch("/:id", async (req, res) => {
+    console.log('patch');
+    try {
+        const userFromDB = await userQueriesModel.getUserById(req.params.id);
+        userFromDB.isBusiness = !userFromDB.isBusiness;
+        await userQueriesModel.findByIdAndUpdate(req.params.id, userFromDB);
+        res.json({ isBusiness: "changed status" });
     } catch (err) {
         res.status(400).json(err);
     }

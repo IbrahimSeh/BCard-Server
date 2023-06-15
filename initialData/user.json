@@ -1,0 +1,17 @@
+{
+  "name": {
+    "first": "john",
+    "middle": "joenkhn",
+    "last": "wich"
+  },
+  "phone": "0500000000",
+  "email": "john@gmail.com",
+  "password": "Aa123456!",
+  "address": {
+    "country": "Israel",
+    "city": "Ashkeluna",
+    "street": "nof ha hof",
+    "houseNumber": 255
+  },
+  "isBusiness": true
+}
