@@ -5,6 +5,7 @@ const Image = require("./Image");
 
 const schema = new mongoose.Schema({
   name: Name,
+  isBusiness: { type: Boolean, default: false },
   phone: {
     type: String,
     required: true,
@@ -25,14 +26,13 @@ const schema = new mongoose.Schema({
       /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/
     ),
   },
-  image: Image,
   address: Address,
   isAdmin: { type: Boolean, default: false },
-  isBusiness: { type: Boolean, default: false },
   createdAt: {
     type: Date,
     default: Date.now,
   },
+  image: Image,
 });
 
 const User = mongoose.model("users", schema);
