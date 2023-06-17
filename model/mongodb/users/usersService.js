@@ -22,10 +22,15 @@ const findByIdAndUpdate = (id, userData) => {
   return User.findByIdAndUpdate(id, userData);
 }
 
+const deleteUser = (id) => {
+  return User.findByIdAndDelete(id);
+}
+
 module.exports = {
   registerUser,
   getUserByEmail,
   getAllUsers,
   getUserById,
   findByIdAndUpdate,
+  deleteUser,
 };

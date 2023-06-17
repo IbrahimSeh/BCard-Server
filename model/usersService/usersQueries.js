@@ -32,10 +32,17 @@ const findByIdAndUpdate = (id, userData) => {
   }
 }
 
+const deleteUser = (id) => {
+  if (dbOption === "mongo") {
+    return usersServiceMongo.deleteUser(id);
+  }
+}
+
 module.exports = {
   registerUser,
   getUserByEmail,
   getAllUsers,
   getUserById,
   findByIdAndUpdate,
+  deleteUser,
 };
