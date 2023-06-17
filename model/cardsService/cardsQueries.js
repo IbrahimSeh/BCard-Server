@@ -7,6 +7,7 @@ const createCard = (cardToSave) => {
   }
 };
 
+//used
 const getAllCards = () => {
   if (dbOption === "mongo") {
     return cardsServiceMongo.getAllCards();
@@ -16,6 +17,12 @@ const getAllCards = () => {
 const getCardById = (id) => {
   if (dbOption === "mongo") {
     return cardsServiceMongo.getCardById(id);
+  }
+};
+
+const getUserCards = (userID) => {
+  if (dbOption === "mongo") {
+    return cardsServiceMongo.getUserCards(userID);
   }
 };
 
@@ -41,6 +48,7 @@ module.exports = {
   createCard,
   getAllCards,
   getCardById,
+  getUserCards,
   getCardByBizNumber,
   updateCard,
   deleteCard,

@@ -13,6 +13,10 @@ const getCardById = (id) => {
   return Card.findById(id);
 };
 
+const getUserCards = (userID) => {
+  return Card.find({ user_id: user._id });
+};
+
 const getCardByBizNumber = (bizNumber) => {
   return Card.findOne({ bizNumber }, { bizNumber: 1, _id: 0 });
 };
@@ -32,6 +36,7 @@ module.exports = {
   createCard,
   getAllCards,
   getCardById,
+  getUserCards,
   getCardByBizNumber,
   updateCard,
   deleteCard,
