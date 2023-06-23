@@ -44,6 +44,12 @@ const deleteCard = (id) => {
   }
 };
 
+const cardToLike = (id) => {
+  if (dbOption === "mongo") {
+    return cardsServiceMongo.deleteCard(id);
+  }
+};
+
 module.exports = {
   createCard,
   getAllCards,
@@ -52,4 +58,5 @@ module.exports = {
   getCardByBizNumber,
   updateCard,
   deleteCard,
+  cardToLike,
 };

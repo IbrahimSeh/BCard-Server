@@ -14,7 +14,7 @@ const getCardById = (id) => {
 };
 
 const getUserCards = (userID) => {
-  return Card.find({ user_id: user._id });
+  return Card.find({ user_id: userID });
 };
 
 const getCardByBizNumber = (bizNumber) => {

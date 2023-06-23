@@ -149,7 +149,6 @@ router.delete("/:id", async (req, res) => {
         console.log('in catch');
         res.status(400).json(err);
     }
-}
-);
+});
 
 module.exports = router;
