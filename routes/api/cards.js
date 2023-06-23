@@ -5,6 +5,10 @@ const jwt = require("jsonwebtoken");
 const cardQueriesModel = require("../../model/cardsService/cardsQueries");
 const cardsValidationService = require("../../validation/cardsValidationService");
 const normalizeCard = require("../../model/cardsService/helpers/normalizationCardService");
+const tokenMw = require("../../middleware/verifyTokenMW");
+const isBizMw = require("../../middleware/isBusinessMW");
+const Card = require("../../model/mongodb/cards/Card");
+const generateBizNum = require("../../model/mongodb/cards/helpers/generateBizNumber");
 
 //http://localhost:8181/api/cards
 router.get("/", async (req, res) => {
@@ -43,18 +47,53 @@ router.get("/:id", async (req, res) => {
 });
 
 //http://localhost:8181/api/cards
-router.post("/", async (req, res) => {
+router.post("/", tokenMw, isBizMw, async (req, res) => {
     try {
         await cardsValidationService.createCardValidation(req.body);
         let normalCard = await normalizeCard(req.body, jwt.decode(req.headers["x-auth-token"])._id);
         const dataFromMongoose = await cardQueriesModel.createCard(normalCard);
-        console.log("dataFromMongoose", dataFromMongoose);
-        res.json({ msg: "ok" });
+        res.json(dataFromMongoose);
     } catch (error) {
         console.log(chalk.redBright(error.message));
         return res.status(500).send(error.message);
     }
 });
+
+// router.post("/", tokenMw, isBizMw, async (req, res) => {
+//     try {
+//         let card = req.body;
+//         await cardsValidationService.createCardValidation(card);
+//         const user = req.userData;
+//         card = new Card({
+//             title: card.title,
+//             subTitle: card.subTitle,
+//             description: card.description,
+//             state: card.state,
+//             country: card.country,
+//             city: card.city,
+//             street: card.street,
+//             houseNumber: card.houseNumber,
+//             zipCode: card.zipCode,
+//             email: card.email,
+//             web: card.web,
+//             phone: card.phone,
+//             image: {
+//                 url: card.url
+//                     ? card.url
+//                     : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
+//                 alt: card.alt ? card.alt : "Pic Of Business Card",
+//             },
+//             bizNumber: await generateBizNum(),
+//             user_id: user._id,
+//         });
+//         card = await card.save();
+//         return res.send(card);
+//     } catch (error) {
+//         console.log(chalk.redBright(error.message));
+//         return res.status(500).send(error);
+//     }
+// });
+
 
 //http://localhost:8181/api/cards/:id
 router.put("/:id", async (req, res) => {
