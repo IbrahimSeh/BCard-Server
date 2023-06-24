@@ -9,8 +9,8 @@ const generateHash = (password) => {
     case "bcryptOther":
       return bcryptOther.generateHash(password);
     case "bcryptjs":
-    default:
       return bcryptjs.generateHash(password);
+    default:
   }
 };
 

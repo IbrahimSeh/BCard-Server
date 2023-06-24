@@ -10,6 +10,9 @@ const userQueriesModel = require("../../model/usersService/usersQueries");
 const { generateToken } = require("../../utils/token/tokenService");
 const { validateObjectID } = require("../../utils/objectID/verifyObjectID");
 const CustomError = require("../../utils/CustomError");
+const isAdminMw = require("../../middleware/isAdminMW");
+const tokenMw = require("../../middleware/verifyTokenMW");
+const isAdminOrRegisteredMw = require("../../middleware/isAdminOrRegisteredMw");
 
 //http://localhost:8181/api/users
 router.post("/", async (req, res) => {
@@ -25,10 +28,15 @@ router.post("/", async (req, res) => {
         await registerUserValidation(req.body);
         req.body.password = await hashService.generateHash(req.body.password);
         req.body = normalizeUser(req.body);
-        // console.log('after normalization = ', req.body);
         await userQueriesModel.registerUser(req.body);
         res.json(req.body);
     } catch (err) {
+        if (err.hasOwnProperty('details')) {
+            return res.status(400).send(err.details[0].message)
+        }
+        if (err.hasOwnProperty('keyValue')) {
+            return res.status(400).send(err.keyValue.email + " is already exist in database");
+        }
         res.status(400).json(err);
     }
 });
@@ -60,12 +68,12 @@ router.post("/login", async (req, res) => {
         });
         res.json({ token });
     } catch (err) {
-        res.status(400).json(err);
+        res.status(400).json(err.msg);
     }
 });
 
 //http://localhost:8181/api/users
-router.get("/", async (req, res) => {
+router.get("/", tokenMw, isAdminMw, async (req, res) => {
     try {
         const allUsers = await userQueriesModel.getAllUsers();
         res.json(allUsers);
@@ -75,7 +83,7 @@ router.get("/", async (req, res) => {
 });
 
 //http://localhost:8181/api/users/:id
-router.get("/:id", async (req, res) => {
+router.get("/:id", tokenMw, isAdminOrRegisteredMw(true, true), async (req, res) => {
     try {
         //! joi validation
         const userFromDB = await userQueriesModel.getUserById(req.params.id);

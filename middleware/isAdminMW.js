@@ -1,6 +1,7 @@
 const CustomError = require("../utils/CustomError");
 const isAdminMw = async (req, res, next) => {
   try {
+    req.userData = null
     if (!req.userData) {
       throw new CustomError("must provide userData");
     }
@@ -8,13 +9,7 @@ const isAdminMw = async (req, res, next) => {
       throw new CustomError("user must be Admin !")
     next();
   } catch (err) {
-    let errToSend;
-    if (err instanceof CustomError) {
-      errToSend = err;
-    } else {
-      errToSend = new CustomError("invalid token");
-    }
-    res.status(401).json(errToSend);
+    res.status(500).json(err.msg);
   }
 };
 

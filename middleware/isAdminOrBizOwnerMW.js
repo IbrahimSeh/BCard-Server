@@ -18,7 +18,7 @@ const checkIfBizOwner = async (iduser, idcard, res, next) => {
     }
 };
 
-const permissionsMiddleware = (isBiz, isAdmin, isBizOwner) => {
+const isAdminOrOwnerMw = (isBiz, isAdmin, isBizOwner) => {
     return (req, res, next) => {
         if (!req.userData) {
             throw new CustomError("must provide userData");
@@ -36,4 +36,4 @@ const permissionsMiddleware = (isBiz, isAdmin, isBizOwner) => {
     };
 };
 
-module.exports = permissionsMiddleware;
+module.exports = isAdminOrOwnerMw;

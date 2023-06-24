@@ -1,0 +1,34 @@
+// router.post("/", tokenMw, isBizMw, async (req, res) => {
+//     try {
+//         let card = req.body;
+//         await cardsValidationService.createCardValidation(card);
+//         const user = req.userData;
+//         card = new Card({
+//             title: card.title,
+//             subTitle: card.subTitle,
+//             description: card.description,
+//             state: card.state,
+//             country: card.country,
+//             city: card.city,
+//             street: card.street,
+//             houseNumber: card.houseNumber,
+//             zipCode: card.zipCode,
+//             email: card.email,
+//             web: card.web,
+//             phone: card.phone,
+//             image: {
+//                 url: card.url
+//                     ? card.url
+//                     : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
+//                 alt: card.alt ? card.alt : "Pic Of Business Card",
+//             },
+//             bizNumber: await generateBizNum(),
+//             user_id: user._id,
+//         });
+//         card = await card.save();
+//         return res.send(card);
+//     } catch (error) {
+//         console.log(chalk.redBright(error.message));
+//         return res.status(500).send(error);
+//     }
+// });

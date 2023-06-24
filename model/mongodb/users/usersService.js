@@ -1,7 +1,6 @@
 const User = require("./Users");
 
 const registerUser = (userData) => {
-  // console.log('userData = ', userData);
   const user = new User(userData);
   return user.save();
 };

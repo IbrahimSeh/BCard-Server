@@ -11,11 +11,13 @@ const verifyTokenMw = async (req, res, next) => {
   } catch (err) {
     let errToSend;
     if (err instanceof CustomError) {
+      console.log('in if');
       errToSend = err;
     } else {
+      console.log('in else');
       errToSend = new CustomError("invalid token");
     }
-    res.status(401).json(errToSend);
+    res.status(401).json(errToSend.msg);
   }
 };
 module.exports = verifyTokenMw;
