@@ -8,11 +8,12 @@ const {
 const normalizeUser = require("../../model/usersService/helpers/normalizationUserService");
 const userQueriesModel = require("../../model/usersService/usersQueries");
 const { generateToken } = require("../../utils/token/tokenService");
-const { validateObjectID } = require("../../utils/objectID/verifyObjectID");
 const CustomError = require("../../utils/CustomError");
 const isAdminMw = require("../../middleware/isAdminMW");
 const tokenMw = require("../../middleware/verifyTokenMW");
+const registeredUserMw = require("../../middleware/registeredUserMw");
 const isAdminOrRegisteredMw = require("../../middleware/isAdminOrRegisteredMw");
+const { isValidObjectId } = require("../../utils/objectID/verifyObjectID");
 
 //http://localhost:8181/api/users
 router.post("/", async (req, res) => {
@@ -68,7 +69,7 @@ router.post("/login", async (req, res) => {
         });
         res.json({ token });
     } catch (err) {
-        res.status(400).json(err.msg);
+        res.status(400).json(err);
     }
 });
 
@@ -85,9 +86,10 @@ router.get("/", tokenMw, isAdminMw, async (req, res) => {
 //http://localhost:8181/api/users/:id
 router.get("/:id", tokenMw, isAdminOrRegisteredMw(true, true), async (req, res) => {
     try {
-        //! joi validation
+        const validateID = isValidObjectId(req.params.id);
+        if (!validateID) throw new CustomError("object-id is not a valid MongodbID");
         const userFromDB = await userQueriesModel.getUserById(req.params.id);
-        //if userFromDB == null return admin
+        if (!userFromDB) throw new CustomError("Sorry ,user not found in database !");
         res.json(userFromDB);
     } catch (err) {
         res.status(400).json(err);
@@ -95,66 +97,56 @@ router.get("/:id", tokenMw, isAdminOrRegisteredMw(true, true), async (req, res) 
 });
 
 //http://localhost:8181/api/users/:id
-router.put("/:id", async (req, res) => {
-    console.log('put');
+router.put("/:id", tokenMw, registeredUserMw, async (req, res) => {
     try {
-        // joi validation
+        const validateID = isValidObjectId(req.params.id);
+        if (!validateID) throw new CustomError("object-id is not a valid MongodbID");
         await registerUserValidation(req.body);
-        //check if user id exist in database
         const userFromDB = await userQueriesModel.getUserById(req.params.id);
-        if (!userFromDB) {
-            res.json("given user  id does not exist in database")
-            throw new CustomError("given user  id does not exist in database");
-        }
+        if (!userFromDB) throw new CustomError("Sorry ,user not found in database !");
         //if the client side try to update email to exist email in DB , mongo will reject
         //update data in DB
         await userQueriesModel.findByIdAndUpdate(req.params.id, req.body);
-        res.json({
-            msg: "Done",
-            user: req.body
-        });
+        res.json(req.body);
+    } catch (err) {
+        if (err.hasOwnProperty('details')) {
+            return res.status(400).send(err.details[0].message)
+        }
+        if (err.hasOwnProperty('keyValue')) {
+            return res.status(400).send(err.keyValue.email + " is already exist in database");
+        }
+        res.status(400).json(err);
+    }
+});
+
+//http://localhost:8181/api/users/:id
+router.patch("/:id", tokenMw, registeredUserMw, async (req, res) => {
+    console.log('patch');
+    try {
+        const validateID = isValidObjectId(req.params.id);
+        if (!validateID) throw new CustomError("object-id is not a valid MongodbID");
+        const userFromDB = await userQueriesModel.getUserById(req.params.id);
+        if (!userFromDB) throw new CustomError("Sorry ,user not found in database !");
+        userFromDB.isBusiness = !userFromDB.isBusiness;
+        await userQueriesModel.findByIdAndUpdate(req.params.id, userFromDB);
+        res.json(userFromDB);
     } catch (err) {
         res.status(400).json(err);
     }
 });
 
 //http://localhost:8181/api/users/:id
-router.patch("/:id", async (req, res) => {
-    console.log('patch');
+router.delete("/:id", tokenMw, isAdminOrRegisteredMw(true, true), async (req, res) => {
     try {
-        const userFromDB = await userQueriesModel.getUserById(req.params.id);
-        if (!userFromDB) throw new CustomError("could not find the user");
-        userFromDB.isBusiness = !userFromDB.isBusiness;
-        await userQueriesModel.findByIdAndUpdate(req.params.id, userFromDB);
-        res.json({
-            isBusiness: "changed status",
-            user: userFromDB
-        });
-    } catch (err) {
-        console.log('here catch');
-        res.status(400).json(err);
-    }
-});
-
-// admin or biz owner
-router.delete("/:id", async (req, res) => {
-    console.log('in delete');
-    try {
-        // await validateObjectID(id);
-        // console.log('isvalidID = ', isvalidID);
-        // if (!validateObjectID(id)) {
-        //     console.log('in throw');
-        //     throw new CustomError("Object id is invalid")
-        //     res.json({ msg: "Object id is invalid" });
-        // }
+        const validateID = isValidObjectId(req.params.id);
+        if (!validateID) throw new CustomError("object-id is not a valid MongodbID");
         const userFromDB = await userQueriesModel.deleteUser(req.params.id);
         if (userFromDB) {
-            res.json({ msg: "user deleted" });
+            res.json(userFromDB);
         } else {
             res.json({ msg: "could not find the user" });
         }
     } catch (err) {
-        console.log('in catch');
         res.status(400).json(err);
     }
 });

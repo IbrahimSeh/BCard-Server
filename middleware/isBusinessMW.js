@@ -1,4 +1,3 @@
-const { verifyToken } = require("../utils/token/tokenService");
 const CustomError = require("../utils/CustomError");
 
 const isBizMw = async (req, res, next) => {
