@@ -4,50 +4,53 @@ const chalk = require("chalk");
 const jwt = require("jsonwebtoken");
 const cardQueriesModel = require("../../model/cardsService/cardsQueries");
 const cardsValidationService = require("../../validation/cardsValidationService");
+const CustomError = require("../../utils/CustomError");
 const normalizeCard = require("../../model/cardsService/helpers/normalizationCardService");
+const isAdminMw = require("../../middleware/isAdminMW");
+const isBusinessMW = require("../../middleware/isBusinessMW");
 const tokenMw = require("../../middleware/verifyTokenMW");
-const isBizMw = require("../../middleware/isBusinessMW");
-const Card = require("../../model/mongodb/cards/Card");
-const generateBizNum = require("../../model/mongodb/cards/helpers/generateBizNumber");
+const registeredUserMw = require("../../middleware/registeredUserMw");
+const isAdminOrRegisteredMw = require("../../middleware/isAdminOrRegisteredMw");
+const { isValidObjectId } = require("../../utils/objectID/verifyObjectID");
 
 //http://localhost:8181/api/cards
 router.get("/", async (req, res) => {
     try {
         const allCards = await cardQueriesModel.getAllCards();
         res.json(allCards);
-    } catch (error) {
-        console.log(chalk.redBright(error.message));
-        return res.status(500).send(error.message);
+    } catch (err) {
+        res.status(400).json(err);
     }
 });
 
 //http://localhost:8181/api/cards/my-cards
-router.get("/my-cards", async (req, res) => {
+router.get("/my-cards", tokenMw, async (req, res) => {
     try {
-        let user = jwt.decode(req.headers["x-auth-token"]);
-        if (!user.isBusiness) return res.status(403).json("Un authorize user!");
-        const userCards = await cardQueriesModel.getUserCards(user._id);
+        /*
+        I guess you don't need to check if the user is a business because it is possible that he was a business and became normal,by (PATCH) http://localhost:8181/api/users/:id
+        */
+        const userCards = await cardQueriesModel.getUserCards(req.userData._id);
         return res.send(userCards);
-    } catch (error) {
-        console.log(chalk.redBright(error.message));
-        return res.status(500).send(error.message);
+    } catch (err) {
+        res.status(400).json(err);
     }
 });
 
 //http://localhost:8181/api/cards/:id
 router.get("/:id", async (req, res) => {
     try {
-        //! joi validation objectid?
+        const validateID = isValidObjectId(req.params.id);
+        if (!validateID) throw new CustomError("object-id is not a valid MongodbID");
         const cardFromDB = await cardQueriesModel.getCardById(req.params.id);
+        if (!cardFromDB) throw new CustomError("Sorry ,card not found in database !");
         res.json(cardFromDB);
-    } catch (error) {
-        console.log(chalk.redBright(error.message));
-        return res.status(500).send(error.message);
+    } catch (err) {
+        res.status(400).json(err);
     }
 });
 
 //http://localhost:8181/api/cards
-router.post("/", tokenMw, isBizMw, async (req, res) => {
+router.post("/", tokenMw, isBusinessMW, async (req, res) => {
     try {
         await cardsValidationService.createCardValidation(req.body);
         let normalCard = await normalizeCard(req.body, jwt.decode(req.headers["x-auth-token"])._id);

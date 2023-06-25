@@ -77,6 +77,7 @@ router.post("/login", async (req, res) => {
 router.get("/", tokenMw, isAdminMw, async (req, res) => {
     try {
         const allUsers = await userQueriesModel.getAllUsers();
+        // if (!allUsers) throw new CustomError("Sorry, there are no users in the database");
         res.json(allUsers);
     } catch (err) {
         res.status(400).json(err);
@@ -121,7 +122,6 @@ router.put("/:id", tokenMw, registeredUserMw, async (req, res) => {
 
 //http://localhost:8181/api/users/:id
 router.patch("/:id", tokenMw, registeredUserMw, async (req, res) => {
-    console.log('patch');
     try {
         const validateID = isValidObjectId(req.params.id);
         if (!validateID) throw new CustomError("object-id is not a valid MongodbID");
