@@ -7,13 +7,7 @@ const isBizMw = async (req, res, next) => {
             throw new CustomError("user must be Business !")
         next();
     } catch (err) {
-        let errToSend;
-        if (err instanceof CustomError) {
-            errToSend = err;
-        } else {
-            errToSend = new CustomError("invalid token");
-        }
-        res.status(401).json(errToSend);
+        res.status(401).json(err);
     }
 };
 module.exports = isBizMw;

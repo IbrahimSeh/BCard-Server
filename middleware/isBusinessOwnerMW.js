@@ -1,13 +1,16 @@
 const { getCardById } = require("../model/cardsService/cardsQueries");
+const { isValidObjectId } = require("../utils/objectID/verifyObjectID");
+const CustomError = require("../utils/CustomError");
 
-const businessOwnerMw = async (iduser, idcard, res, next) => {
+const isBusinessOwnerMW = async (req, res, next) => {
     try {
-        //! joi the idcard
-        const cardData = await getCardById(idcard);
+        const validateID = isValidObjectId(req.params.id);
+        if (!validateID) throw new CustomError("object-id is not a valid MongodbID");
+        const cardData = await getCardById(req.params.id);
         if (!cardData) {
-            return res.status(400).json({ msg: "card not found" });
+            return res.status(404).json({ msg: "card does not exist in database" });
         }
-        if (cardData.user_id == iduser) {
+        if (cardData.user_id == req.userData._id) {
             next();
         } else {
             res.status(401).json({ msg: "you not the biz owner" });
@@ -17,4 +20,4 @@ const businessOwnerMw = async (iduser, idcard, res, next) => {
     }
 };
 
-module.exports = businessOwnerMw;
+module.exports = isBusinessOwnerMW;

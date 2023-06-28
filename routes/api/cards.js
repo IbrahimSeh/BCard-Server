@@ -8,9 +8,9 @@ const CustomError = require("../../utils/CustomError");
 const normalizeCard = require("../../model/cardsService/helpers/normalizationCardService");
 const isAdminMw = require("../../middleware/isAdminMW");
 const isBusinessMW = require("../../middleware/isBusinessMW");
+const isBusinessOwnerMW = require("../../middleware/isBusinessOwnerMW");
 const tokenMw = require("../../middleware/verifyTokenMW");
-const registeredUserMw = require("../../middleware/registeredUserMw");
-const isAdminOrRegisteredMw = require("../../middleware/isAdminOrRegisteredMw");
+const isAdminOrBizOwnerMW = require("../../middleware/isAdminOrBizOwnerMW");
 const { isValidObjectId } = require("../../utils/objectID/verifyObjectID");
 
 //http://localhost:8181/api/cards
@@ -56,45 +56,42 @@ router.post("/", tokenMw, isBusinessMW, async (req, res) => {
         let normalCard = await normalizeCard(req.body, jwt.decode(req.headers["x-auth-token"])._id);
         const dataFromMongoose = await cardQueriesModel.createCard(normalCard);
         res.json(dataFromMongoose);
-    } catch (error) {
-        console.log(chalk.redBright(error.message));
-        return res.status(500).send(error.message);
+    } catch (err) {
+        if (err.hasOwnProperty('details')) {
+            return res.status(400).send(err.details[0].message)
+        }
+        res.status(400).json(err);
     }
 });
 
 //http://localhost:8181/api/cards/:id
-router.put("/:id", async (req, res) => {
+router.put("/:id", tokenMw, isBusinessOwnerMW, async (req, res) => {
     try {
+        //joi the id card in isBusinessOwnerMW
         await cardsValidationService.createCardValidation(req.body);
         let normalCard = await normalizeCard(req.body, jwt.decode(req.headers["x-auth-token"])._id);
         const cardFromDB = await cardQueriesModel.getCardById(req.params.id);
-        if (!cardFromDB) {
-            console.log(
-                chalk.redBright("card does not exist in database")
-            );
-            return res.status(404).json("card does not exist in database");
-        }
+        if (!cardFromDB) return res.status(404).json("card does not exist in database");
         const updatedCard = await cardQueriesModel.updateCard(
             req.params.id,
             normalCard
         );
         res.json(updatedCard);
-    } catch (error) {
-        console.log(chalk.redBright(error.message));
-        return res.status(500).send(error.message);
+    } catch (err) {
+        if (err.hasOwnProperty('details')) {
+            return res.status(400).send(err.details[0].message)
+        }
+        res.status(400).json(err);
     }
 });
 
 //http://localhost:8181/api/cards/:id
-router.patch("/:id", async (req, res) => {
+router.patch("/:id", tokenMw, async (req, res) => {
     try {
+        const validateID = isValidObjectId(req.params.id);
+        if (!validateID) throw new CustomError("object-id is not a valid MongodbID");
         let cardFromDB = await cardQueriesModel.getCardById(req.params.id);
-        if (!cardFromDB) {
-            console.log(
-                chalk.redBright("card does not exist in database")
-            );
-            return res.status(404).json("card does not exist in database");
-        }
+        if (!cardFromDB) return res.status(404).json("card does not exist in database");
         const userID = jwt.decode(req.headers["x-auth-token"])._id
         //update like array
         if (cardFromDB.likes.includes(userID)) {
@@ -113,24 +110,20 @@ router.patch("/:id", async (req, res) => {
         );
         res.json(updatedCard);
 
-    } catch (error) {
-        console.log(chalk.redBright("Could not edit like:", error.message));
-        return res.status(500).send(error.message);
+    } catch (err) {
+        res.status(400).json(err);
     }
 });
 
 //http://localhost:8181/api/cards/:id
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", tokenMw, isAdminOrBizOwnerMW(false, true, true), async (req, res) => {
     try {
-        const cardFromDB = await cardQueriesModel.deleteCard(req.params.id);
-        if (cardFromDB) {
-            res.json({ msg: "deleted card" });
-        } else {
-            res.json({ msg: "could not find the card" });
-        }
-    } catch (error) {
-        console.log(chalk.redBright("Could not delete card:", error.message));
-        return res.status(500).send(error.message);
+        //joi the id card in isAdminOrBizOwnerMW
+        const deletedCard = await cardQueriesModel.deleteCard(req.params.id);
+        if (!deletedCard) return res.status(404).json("card does not exist in database");
+        res.json(deletedCard);
+    } catch (err) {
+        res.status(400).json(err);
     }
 });
 
