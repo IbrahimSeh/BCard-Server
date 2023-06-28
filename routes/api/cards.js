@@ -71,7 +71,7 @@ router.put("/:id", tokenMw, isBusinessOwnerMW, async (req, res) => {
         await cardsValidationService.createCardValidation(req.body);
         let normalCard = await normalizeCard(req.body, jwt.decode(req.headers["x-auth-token"])._id);
         const cardFromDB = await cardQueriesModel.getCardById(req.params.id);
-        if (!cardFromDB) return res.status(404).json("card does not exist in database");
+        if (!cardFromDB) throw new CustomError("Sorry ,card not found in database !");
         const updatedCard = await cardQueriesModel.updateCard(
             req.params.id,
             normalCard
@@ -91,7 +91,7 @@ router.patch("/:id", tokenMw, async (req, res) => {
         const validateID = isValidObjectId(req.params.id);
         if (!validateID) throw new CustomError("object-id is not a valid MongodbID");
         let cardFromDB = await cardQueriesModel.getCardById(req.params.id);
-        if (!cardFromDB) return res.status(404).json("card does not exist in database");
+        if (!cardFromDB) throw new CustomError("Sorry ,card not found in database !");
         const userID = jwt.decode(req.headers["x-auth-token"])._id
         //update like array
         if (cardFromDB.likes.includes(userID)) {
@@ -120,7 +120,7 @@ router.delete("/:id", tokenMw, isAdminOrBizOwnerMW(false, true, true), async (re
     try {
         //joi the id card in isAdminOrBizOwnerMW
         const deletedCard = await cardQueriesModel.deleteCard(req.params.id);
-        if (!deletedCard) return res.status(404).json("card does not exist in database");
+        if (!deletedCard) throw new CustomError("Sorry ,card not found in database !");
         res.json(deletedCard);
     } catch (err) {
         res.status(400).json(err);

@@ -106,3 +106,5 @@ function onListening() {
   debug("Listening on " + bind);
   console.log(chalk.blue(`Server running on http://localhost:${port}/`));
 }
+
+module.exports = port;
