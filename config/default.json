@@ -1,4 +1,5 @@
 {
+  "portNumber": "8181",
   "validatorOption": "Joi",
   "hashOption": "bcryptjs",
   "dbOption": "mongo",

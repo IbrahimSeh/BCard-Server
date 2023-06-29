@@ -1,7 +1,7 @@
 const config = require("config");
+const dbOption = config.get("dbOption");
 const chalk = require("chalk");
 const connectToDBMongo = require("./mongodb/connectToDB");
-const dbOption = config.get("dbOption");
 
 const connectToDB = () => {
     switch (dbOption) {

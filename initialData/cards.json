@@ -1,0 +1,44 @@
+[
+  {
+    "title": "card 1",
+    "subTitle": "sub card 1",
+    "description": "initial card 1 ",
+    "phone": "0501234567",
+    "email": "a@z.com",
+    "address": {
+      "country": "Israel",
+      "city": "Ashkeluna",
+      "street": "jump street",
+      "houseNumber": 23,
+      "zip": 0
+    }
+  },
+  {
+    "title": "card 2",
+    "subTitle": "sub card 2",
+    "description": "initial card 2",
+    "phone": "0500000000",
+    "email": "a@x.com",
+    "address": {
+      "country": "Israel",
+      "city": "Ashkeluna",
+      "street": "jump street",
+      "houseNumber": 23,
+      "zip": 0
+    }
+  },
+  {
+    "title": "card 3",
+    "subTitle": "sub card 3",
+    "description": "initial card 3",
+    "phone": "0547539518",
+    "email": "a@c.com",
+    "address": {
+      "country": "Israel",
+      "city": "Ashkeluna",
+      "street": "jump street",
+      "houseNumber": 23,
+      "zip": 0
+    }
+  }
+]

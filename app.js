@@ -2,26 +2,27 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-// const port = require("./bin/www");
-
+const cors = require("cors");
+const initialData = require("./initialData/initialData");
 const apiRouter = require("./routes/api");
+const config = require("config");
+const portNumber = config.get("portNumber");
 
 var app = express();
 
-//app.use(logger('dev'));
-// app.use(
-//     logger(
-//         ':remote-addr - :remote-user [:date[clf]] ":method :url HTTP/:http-version" :status :res[content-length] ":referrer" ":user-agent"'
-//     )
-// );
+app.use(
+    cors({
+        origin: "http://192.168.0.108:3000",
+        optionsSuccessStatus: 200,
+    })
+);
+
 app.use(
     logger((tokens, req, res) => {
-        console.log("http://localhost:8181" + tokens.url(req, res));
-        //console.log('port = ', port);
         return [
             new Date().toISOString().replace("T", " "),
             tokens.method(req, res),
-            "http://localhost:8181" + tokens.url(req, res),
+            `http://localhost:${portNumber}` + tokens.url(req, res),
             tokens.status(req, res),
             //tokens.res(req, res, "content-length"),
             "-",
@@ -34,7 +35,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
+initialData();
 
 app.use("/api", apiRouter);
 app.use((req, res, next) => {

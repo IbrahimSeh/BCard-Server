@@ -1,0 +1,52 @@
+[
+  {
+    "name": {
+      "first": "john",
+      "middle": "tade",
+      "last": "wich"
+    },
+    "phone": "0500000000",
+    "email": "john@gmail.com",
+    "password": "Aa123456!",
+    "address": {
+      "country": "Israel",
+      "city": "Ashkeluna",
+      "street": "nof ha hof",
+      "houseNumber": 255
+    },
+    "isAdmin": true
+  },
+  {
+    "name": {
+      "first": "john",
+      "middle": "nade",
+      "last": "sinay"
+    },
+    "phone": "0500000000",
+    "email": "johnsinay@gmail.com",
+    "password": "Aa123456!",
+    "address": {
+      "country": "Israel",
+      "city": "Ashkeluna",
+      "street": "nof ha hof",
+      "houseNumber": 255
+    }
+  },
+  {
+    "name": {
+      "first": "kenny",
+      "middle": "gade",
+      "last": "mc"
+    },
+    "phone": "0500000000",
+    "email": "kenny@gmail.com",
+    "password": "Aa123456!",
+    "address": {
+      "country": "Israel",
+      "city": "Ashkeluna",
+      "street": "nof ha hof",
+      "houseNumber": 255
+    },
+    "isBusiness": true
+  }
+]
