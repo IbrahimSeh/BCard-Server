@@ -1,7 +1,6 @@
 const CustomError = require("../utils/CustomError");
 const isAdminMw = async (req, res, next) => {
   try {
-    req.userData = null
     if (!req.userData) {
       throw new CustomError("must provide userData");
     }

@@ -1,6 +1,7 @@
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
+const chalk = require("chalk");
 var logger = require('morgan');
 const cors = require("cors");
 const initialData = require("./initialData/initialData");
@@ -19,24 +20,38 @@ app.use(
 
 app.use(
     logger((tokens, req, res) => {
-        return [
+        const loggerApplication = [
             new Date().toISOString().replace("T", " "),
             tokens.method(req, res),
             `http://localhost:${portNumber}` + tokens.url(req, res),
             tokens.status(req, res),
-            //tokens.res(req, res, "content-length"),
             "-",
             tokens["response-time"](req, res),
             "ms",
-        ].join(" ");
+        ];
+        if (tokens.status(req, res) >= 100 && tokens.status(req, res) < 200) {
+            console.log(chalk.blueBright.bold(loggerApplication.join(" ")));
+        }
+        if (tokens.status(req, res) >= 200 && tokens.status(req, res) < 300) {
+            console.log(chalk.greenBright.bold(loggerApplication.join(" ")));
+        }
+        if (tokens.status(req, res) >= 300 && tokens.status(req, res) < 400) {
+            console.log(chalk.yellowBright.bold(loggerApplication.join(" ")));
+        }
+        if (tokens.status(req, res) >= 400 && tokens.status(req, res) < 500) {
+            console.log(chalk.redBright.bold(loggerApplication.join(" ")));
+        }
+        if (tokens.status(req, res) >= 500 && tokens.status(req, res) < 600) {
+            console.log(chalk.magentaBright.bold(loggerApplication.join(" ")));
+        }
+
     })
 );
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use("/public", express.static(path.join(__dirname, "public")));
 initialData();
-
 app.use("/api", apiRouter);
 app.use((req, res, next) => {
     res.status(404).json({ err: "page not found app.js" });
