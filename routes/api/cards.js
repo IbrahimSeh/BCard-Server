@@ -6,7 +6,6 @@ const cardQueriesModel = require("../../model/cardsService/cardsQueries");
 const cardsValidationService = require("../../validation/cardsValidationService");
 const CustomError = require("../../utils/CustomError");
 const normalizeCard = require("../../model/cardsService/helpers/normalizationCardService");
-const isAdminMw = require("../../middleware/isAdminMW");
 const isBusinessMW = require("../../middleware/isBusinessMW");
 const isBusinessOwnerMW = require("../../middleware/isBusinessOwnerMW");
 const tokenMw = require("../../middleware/verifyTokenMW");

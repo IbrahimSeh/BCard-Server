@@ -4,6 +4,7 @@ var cookieParser = require('cookie-parser');
 const chalk = require("chalk");
 var logger = require('morgan');
 const cors = require("cors");
+const fs = require('fs/promises');
 const initialData = require("./initialData/initialData");
 const apiRouter = require("./routes/api");
 const config = require("config");
@@ -18,8 +19,19 @@ app.use(
     })
 );
 
+async function writetoFile(tokens, req, res) {
+    try {
+        const fileName = new Date().toISOString().replace("T", " ").split(' ')[0] + ".txt";
+        const content = new Date().toISOString().replace("T", " ") + " " + tokens.status(req, res) + " " + tokens.method(req, res) + " " + `http://localhost:${portNumber}` + tokens.url(req, res) + " " + res.statusMessage + "\n";
+        await fs.writeFile(path.join(__dirname, `logs/${fileName}`), content, { flag: 'a+' });
+    } catch (err) {
+        console.log(err);
+    }
+}
+
 app.use(
     logger((tokens, req, res) => {
+
         const loggerApplication = [
             new Date().toISOString().replace("T", " "),
             tokens.method(req, res),
@@ -28,7 +40,14 @@ app.use(
             "-",
             tokens["response-time"](req, res),
             "ms",
+            "  ",
+            res.statusMessage
         ];
+
+        if (tokens.status(req, res) >= 400) {
+            writetoFile(tokens, req, res);
+        }
+
         if (tokens.status(req, res) >= 100 && tokens.status(req, res) < 200) {
             console.log(chalk.blueBright.bold(loggerApplication.join(" ")));
         }
