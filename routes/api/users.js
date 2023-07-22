@@ -78,7 +78,6 @@ router.post("/login", async (req, res) => {
 router.get("/", tokenMw, isAdminMw, async (req, res) => {
     try {
         const allUsers = await userQueriesModel.getAllUsers();
-        // if (!allUsers) throw new CustomError("Sorry, there are no users in the database");
         res.json(allUsers);
     } catch (err) {
         res.status(400).json(err);
