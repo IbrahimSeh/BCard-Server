@@ -1,0 +1,1 @@
+2023-08-07 05:48:24.538Z 400 GET http://localhost:8181/api/cards/cards Bad Request
