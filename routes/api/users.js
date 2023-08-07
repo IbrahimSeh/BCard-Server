@@ -66,7 +66,7 @@ router.post("/login", async (req, res) => {
         const token = await generateToken({
             _id: userData._id,
             isAdmin: userData.isAdmin,
-            isBusiness: userData.isBusiness,
+            isSubscription: userData.isSubscription,
         });
         res.json({ token });
     } catch (err) {
