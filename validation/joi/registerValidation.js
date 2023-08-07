@@ -19,7 +19,7 @@ const registerSchema = Joi.object({
   password: Joi.string()
     .regex(
       new RegExp(
-        /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/
+        /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/
       )
     )
     .min(6).max(1024).required(),
@@ -29,19 +29,19 @@ const registerSchema = Joi.object({
         /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/
       )
     ),
-    alt: Joi.string().min(2).max(256).required(),
+    alt: Joi.string().min(2).max(256),
   }),
   address: Joi.object()
     .keys({
-      state: Joi.string().min(2).max(256),
+      state: Joi.string().min(2).max(256).allow(""),
       country: Joi.string().min(2).max(256).required(),
       city: Joi.string().min(2).max(256).required(),
       street: Joi.string().min(2).max(256).required(),
-      houseNumber: Joi.number().min(1).max(256).required(),
+      houseNumber: Joi.string().min(1).max(256).required(),
       zip: Joi.number().allow("", 0),
     })
     .required(),
-  isBusiness: Joi.boolean().required(),
+  isSubscription: Joi.boolean().required(),
 });
 
 const validateRegisterSchema = (userInput) =>

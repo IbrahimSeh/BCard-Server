@@ -5,7 +5,7 @@ const Image = require("./Image");
 
 const schema = new mongoose.Schema({
   name: Name,
-  isBusiness: { type: Boolean, default: false },
+  isSubscription: { type: Boolean, default: false },
   phone: {
     type: String,
     required: true,

@@ -9,10 +9,10 @@ const loginSchema = Joi.object({
   password: Joi.string()
     .regex(
       new RegExp(
-        /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/
+        /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/
       )
     )
-    .required(),
+    .min(6).max(1024).required(),
 });
 
 const validateLoginSchema = (userInput) => loginSchema.validateAsync(userInput);

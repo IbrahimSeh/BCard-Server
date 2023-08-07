@@ -1,1 +1,15 @@
 2023-08-07 05:48:24.538Z 400 GET http://localhost:8181/api/cards/cards Bad Request
+2023-08-07 06:33:48.301Z 400 POST http://localhost:8181/api/users Bad Request
+2023-08-07 06:40:06.862Z 400 POST http://localhost:8181/api/users Bad Request
+2023-08-07 06:40:28.279Z 400 POST http://localhost:8181/api/users Bad Request
+2023-08-07 06:41:53.891Z 400 POST http://localhost:8181/api/users Bad Request
+2023-08-07 06:42:20.526Z 400 POST http://localhost:8181/api/users Bad Request
+2023-08-07 06:42:36.608Z 400 POST http://localhost:8181/api/users Bad Request
+2023-08-07 06:42:55.714Z 400 POST http://localhost:8181/api/users Bad Request
+2023-08-07 06:46:37.167Z 400 POST http://localhost:8181/api/users Bad Request
+2023-08-07 06:51:54.296Z 400 POST http://localhost:8181/api/users Bad Request
+2023-08-07 06:53:34.659Z 400 POST http://localhost:8181/api/users Bad Request
+2023-08-07 06:54:36.880Z 400 POST http://localhost:8181/api/users Bad Request
+2023-08-07 06:55:16.886Z 400 POST http://localhost:8181/api/users Bad Request
+2023-08-07 06:56:44.306Z 400 POST http://localhost:8181/api/users Bad Request
+2023-08-07 07:05:16.829Z 401 GET http://localhost:8181/api/users/userInfo Unauthorized
