@@ -140,7 +140,7 @@ router.delete("/:id", tokenMw, isAdminOrRegisteredMw(true, true), async (req, re
     try {
         const validateID = isValidObjectId(req.params.id);
         if (!validateID) throw new CustomError("object-id is not a valid MongodbID");
-        //delete cards that related to user
+        //delete cars that related to user
         const userCars = await carQueriesModel.getUserCars(req.params.id);
         userCars.forEach(async element => {
             await carQueriesModel.deleteCar(element._id);

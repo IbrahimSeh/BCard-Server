@@ -15,14 +15,14 @@ const { isValidObjectId } = require("../../utils/objectID/verifyObjectID");
 //http://localhost:8181/api/cars
 router.get("/", async (req, res) => {
     try {
-        const allCars = await carQueriesModel.getAllCards();
+        const allCars = await carQueriesModel.getAllCars();
         res.json(allCars);
     } catch (err) {
         res.status(400).json(err);
     }
 });
 
-//http://localhost:8181/api/cards/my-cars
+//http://localhost:8181/api/cars/my-cars
 router.get("/my-cars", tokenMw, async (req, res) => {
     try {
         /*

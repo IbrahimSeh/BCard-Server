@@ -41,7 +41,7 @@ const registerSchema = Joi.object({
       zip: Joi.number().allow("", 0),
     })
     .required(),
-  isSubscription: Joi.boolean().required(),
+  isSubscription: Joi.boolean(),
 });
 
 const validateRegisterSchema = (userInput) =>
