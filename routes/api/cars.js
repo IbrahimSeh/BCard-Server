@@ -2,58 +2,58 @@ const express = require("express");
 const router = express.Router();
 const chalk = require("chalk");
 const jwt = require("jsonwebtoken");
-const cardQueriesModel = require("../../model/cardsService/cardsQueries");
-const cardsValidationService = require("../../validation/cardsValidationService");
+const carQueriesModel = require("../../model/carsService/carsQueries");
+const carsValidationService = require("../../validation/carsValidationService");
 const CustomError = require("../../utils/CustomError");
-const normalizeCard = require("../../model/cardsService/helpers/normalizationCardService");
+const normalizeCar = require("../../model/carsService/helpers/normalizationCarService");
 const isBusinessMW = require("../../middleware/isBusinessMW");
 const isBusinessOwnerMW = require("../../middleware/isBusinessOwnerMW");
 const tokenMw = require("../../middleware/verifyTokenMW");
 const isAdminOrBizOwnerMW = require("../../middleware/isAdminOrBizOwnerMW");
 const { isValidObjectId } = require("../../utils/objectID/verifyObjectID");
 
-//http://localhost:8181/api/cards
+//http://localhost:8181/api/cars
 router.get("/", async (req, res) => {
     try {
-        const allCards = await cardQueriesModel.getAllCards();
-        res.json(allCards);
+        const allCars = await carQueriesModel.getAllCards();
+        res.json(allCars);
     } catch (err) {
         res.status(400).json(err);
     }
 });
 
-//http://localhost:8181/api/cards/my-cards
-router.get("/my-cards", tokenMw, async (req, res) => {
+//http://localhost:8181/api/cards/my-cars
+router.get("/my-cars", tokenMw, async (req, res) => {
     try {
         /*
         I guess you don't need to check if the user is a business because it is possible that he was a business and became normal,by (PATCH) http://localhost:8181/api/users/:id
         */
-        const userCards = await cardQueriesModel.getUserCards(req.userData._id);
-        return res.send(userCards);
+        const userCars = await carQueriesModel.getUserCars(req.userData._id);
+        return res.send(userCars);
     } catch (err) {
         res.status(400).json(err);
     }
 });
 
-//http://localhost:8181/api/cards/:id
+//http://localhost:8181/api/cars/:id
 router.get("/:id", async (req, res) => {
     try {
         const validateID = isValidObjectId(req.params.id);
         if (!validateID) throw new CustomError("object-id is not a valid MongodbID");
-        const cardFromDB = await cardQueriesModel.getCardById(req.params.id);
-        if (!cardFromDB) throw new CustomError("Sorry ,card not found in database !");
-        res.json(cardFromDB);
+        const carFromDB = await carQueriesModel.getCardById(req.params.id);
+        if (!carFromDB) throw new CustomError("Sorry ,car not found in database !");
+        res.json(carFromDB);
     } catch (err) {
         res.status(400).json(err);
     }
 });
 
-//http://localhost:8181/api/cards
+//http://localhost:8181/api/cars
 router.post("/", tokenMw, isBusinessMW, async (req, res) => {
     try {
-        await cardsValidationService.createCardValidation(req.body);
-        let normalCard = await normalizeCard(req.body, jwt.decode(req.headers["x-auth-token"])._id);
-        const dataFromMongoose = await cardQueriesModel.createCard(normalCard);
+        await carsValidationService.createCarValidation(req.body);
+        let normalCar = await normalizeCar(req.body, jwt.decode(req.headers["x-auth-token"])._id);
+        const dataFromMongoose = await carQueriesModel.createCar(normalCar);
         res.json(dataFromMongoose);
     } catch (err) {
         if (err.hasOwnProperty('details')) {
@@ -63,19 +63,19 @@ router.post("/", tokenMw, isBusinessMW, async (req, res) => {
     }
 });
 
-//http://localhost:8181/api/cards/:id
+//http://localhost:8181/api/cars/:id
 router.put("/:id", tokenMw, isBusinessOwnerMW, async (req, res) => {
     try {
-        //joi the id card in isBusinessOwnerMW
-        await cardsValidationService.createCardValidation(req.body);
-        let normalCard = await normalizeCard(req.body, jwt.decode(req.headers["x-auth-token"])._id);
-        const cardFromDB = await cardQueriesModel.getCardById(req.params.id);
-        if (!cardFromDB) throw new CustomError("Sorry ,card not found in database !");
-        const updatedCard = await cardQueriesModel.updateCard(
+        //joi the id car in isBusinessOwnerMW
+        await carsValidationService.createCarValidation(req.body);
+        let normalCar = await normalizeCar(req.body, jwt.decode(req.headers["x-auth-token"])._id);
+        const carFromDB = await carQueriesModel.getCarById(req.params.id);
+        if (!carFromDB) throw new CustomError("Sorry ,car not found in database !");
+        const updatedCar = await carQueriesModel.updateCar(
             req.params.id,
-            normalCard
+            normalCar
         );
-        res.json(updatedCard);
+        res.json(updatedCar);
     } catch (err) {
         if (err.hasOwnProperty('details')) {
             return res.status(400).send(err.details[0].message)
@@ -84,43 +84,43 @@ router.put("/:id", tokenMw, isBusinessOwnerMW, async (req, res) => {
     }
 });
 
-//http://localhost:8181/api/cards/:id
+//http://localhost:8181/api/cars/:id
 router.patch("/:id", tokenMw, async (req, res) => {
     try {
         const validateID = isValidObjectId(req.params.id);
         if (!validateID) throw new CustomError("object-id is not a valid MongodbID");
-        let cardFromDB = await cardQueriesModel.getCardById(req.params.id);
-        if (!cardFromDB) throw new CustomError("Sorry ,card not found in database !");
+        let carFromDB = await carQueriesModel.getCarById(req.params.id);
+        if (!carFromDB) throw new CustomError("Sorry ,car not found in database !");
         const userID = jwt.decode(req.headers["x-auth-token"])._id
         //update like array
-        if (cardFromDB.likes.includes(userID)) {
+        if (carFromDB.likes.includes(userID)) {
             //remove userID
-            const index = cardFromDB.likes.indexOf(userID);
+            const index = carFromDB.likes.indexOf(userID);
             if (index > -1) { // only splice array when item is found
-                cardFromDB.likes.splice(index, 1);
+                carFromDB.likes.splice(index, 1);
             }
         } else {
             //add it
-            cardFromDB.likes.push(userID);
+            carFromDB.likes.push(userID);
         }
-        const updatedCard = await cardQueriesModel.updateCard(
+        const updatedCar = await carQueriesModel.updateCar(
             req.params.id,
-            cardFromDB
+            carFromDB
         );
-        res.json(updatedCard);
+        res.json(updatedCar);
 
     } catch (err) {
         res.status(400).json(err);
     }
 });
 
-//http://localhost:8181/api/cards/:id
+//http://localhost:8181/api/cars/:id
 router.delete("/:id", tokenMw, isAdminOrBizOwnerMW(false, true, true), async (req, res) => {
     try {
-        //joi the id card in isAdminOrBizOwnerMW
-        const deletedCard = await cardQueriesModel.deleteCard(req.params.id);
-        if (!deletedCard) throw new CustomError("Sorry ,card not found in database !");
-        res.json(deletedCard);
+        //joi the id car in isAdminOrBizOwnerMW
+        const deletedCar = await carQueriesModel.deleteCar(req.params.id);
+        if (!deletedCar) throw new CustomError("Sorry ,car not found in database !");
+        res.json(deletedCar);
     } catch (err) {
         res.status(400).json(err);
     }

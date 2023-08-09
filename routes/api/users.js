@@ -7,7 +7,7 @@ const {
 } = require("../../validation/userValidationService");
 const normalizeUser = require("../../model/usersService/helpers/normalizationUserService");
 const userQueriesModel = require("../../model/usersService/usersQueries");
-const cardQueriesModel = require("../../model/cardsService/cardsQueries");
+const carQueriesModel = require("../../model/carsService/carsQueries");
 const { generateToken } = require("../../utils/token/tokenService");
 const CustomError = require("../../utils/CustomError");
 const isAdminMw = require("../../middleware/isAdminMW");
@@ -141,9 +141,9 @@ router.delete("/:id", tokenMw, isAdminOrRegisteredMw(true, true), async (req, re
         const validateID = isValidObjectId(req.params.id);
         if (!validateID) throw new CustomError("object-id is not a valid MongodbID");
         //delete cards that related to user
-        const userCards = await cardQueriesModel.getUserCards(req.params.id);
-        userCards.forEach(async element => {
-            await cardQueriesModel.deleteCard(element._id);
+        const userCars = await carQueriesModel.getUserCars(req.params.id);
+        userCars.forEach(async element => {
+            await carQueriesModel.deleteCar(element._id);
         });
         const userFromDB = await userQueriesModel.deleteUser(req.params.id);
         if (userFromDB) {

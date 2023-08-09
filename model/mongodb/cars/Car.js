@@ -6,7 +6,7 @@ const {
   DEFAULT_STRING_SCHEMA_REQUIRED,
 } = require("./helpers/mongooseValidation");
 
-const cardSchema = new mongoose.Schema({
+const carSchema = new mongoose.Schema({
   title: DEFAULT_STRING_SCHEMA_REQUIRED,
   subTitle: DEFAULT_STRING_SCHEMA_REQUIRED,
   description: { ...DEFAULT_STRING_SCHEMA_REQUIRED, maxLength: 1024 },
@@ -42,6 +42,6 @@ const cardSchema = new mongoose.Schema({
   }
 });
 
-const Card = mongoose.model("cards", cardSchema);
+const Car = mongoose.model("cars", carSchema);
 
-module.exports = Card;
+module.exports = Car;

@@ -1,19 +1,19 @@
 const CustomError = require("../utils/CustomError");
-const { getCardById } = require("../model/cardsService/cardsQueries");
+const { getCarById } = require("../model/carsService/carsQueries");
 const { isValidObjectId } = require("../utils/objectID/verifyObjectID");
 
-const checkIfBizOwner = async (iduser, idcard, res, next) => {
+const checkIfBizOwner = async (iduser, idcar, res, next) => {
     try {
-        const validateID = isValidObjectId(idcard);
+        const validateID = isValidObjectId(idcar);
         if (!validateID) throw new CustomError("object-id is not a valid MongodbID");
-        const cardData = await getCardById(idcard);
-        if (!cardData) {
-            return res.status(404).json({ msg: "card does not exist in database" });
+        const carData = await getCarById(idcar);
+        if (!carData) {
+            return res.status(404).json({ msg: "car does not exist in database" });
         }
-        if (cardData.user_id == iduser) {
+        if (carData.user_id == iduser) {
             next();
         } else {
-            res.status(401).json({ msg: "business user : you not the business owner of this card" });
+            res.status(401).json({ msg: "business user : you not the business owner of this car" });
         }
     } catch (err) {
         res.status(400).json(err);
@@ -35,7 +35,7 @@ const isAdminOrOwnerMw = (isBiz, isAdmin, isBizOwner) => {
         if (isBizOwner === req.userData.isBusiness && isBizOwner === true) {
             return checkIfBizOwner(req.userData._id, req.params.id, res, next);
         }
-        res.status(401).json({ msg: "you not allowed to delete this card" });
+        res.status(401).json({ msg: "you not allowed to delete this car" });
     };
 };
 

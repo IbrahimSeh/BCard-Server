@@ -1,16 +1,16 @@
 const usersService = require("../model/usersService/usersQueries");
-const cardsService = require("../model/cardsService/cardsQueries");
+const carsService = require("../model/carsService/carsQueries");
 const hashService = require("../utils/hash/hashService");
 const normalizeUser = require("../model/usersService/helpers/normalizationUserService");
-const normalizeCard = require("../model/cardsService/helpers/normalizationCardService");
+const normalizeCar = require("../model/carsService/helpers/normalizationCarService");
 
 const usersData = require("./users.json");
-const cardsData = require("./cards.json");
+const carsData = require("./cars.json");
 
 const initialData = async () => {
   try {
-    let cards = await cardsService.getAllCards();
-    if (cards.length) {
+    let cars = await carsService.getAllCars();
+    if (cars.length) {
       return;
     }
     let users = await usersService.getAllUsers();
@@ -24,9 +24,9 @@ const initialData = async () => {
       user_id = await usersService.registerUser(user);
     }
     user_id = user_id._id + "";
-    for (let card of cardsData) {
-      card = await normalizeCard(card, user_id);
-      await cardsService.createCard(card);
+    for (let car of carsData) {
+      car = await normalizeCar(car, user_id);
+      await carsService.createCar(car);
     }
   } catch (err) {
     console.log("err from initial", err);
