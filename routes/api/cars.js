@@ -10,6 +10,7 @@ const isBusinessMW = require("../../middleware/isBusinessMW");
 const isBusinessOwnerMW = require("../../middleware/isBusinessOwnerMW");
 const tokenMw = require("../../middleware/verifyTokenMW");
 const isAdminOrBizOwnerMW = require("../../middleware/isAdminOrBizOwnerMW");
+const isAdminMW = require("../../middleware/isAdminMW");
 const { isValidObjectId } = require("../../utils/objectID/verifyObjectID");
 
 //http://localhost:8181/api/cars
@@ -49,9 +50,12 @@ router.get("/:id", async (req, res) => {
 });
 
 //http://localhost:8181/api/cars
-router.post("/", tokenMw, isBusinessMW, async (req, res) => {
+router.post("/", tokenMw, isAdminMW, async (req, res) => {
     try {
+        console.log('here');
+        console.log('car from user = ', req.body);
         await carsValidationService.createCarValidation(req.body);
+        console.log('here2');
         let normalCar = await normalizeCar(req.body, jwt.decode(req.headers["x-auth-token"])._id);
         const dataFromMongoose = await carQueriesModel.createCar(normalCar);
         res.json(dataFromMongoose);

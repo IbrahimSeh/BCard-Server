@@ -9,18 +9,6 @@ const Address = new mongoose.Schema({
   country: DEFAULT_STRING_SCHEMA_REQUIRED,
   city: DEFAULT_STRING_SCHEMA_REQUIRED,
   street: DEFAULT_STRING_SCHEMA_REQUIRED,
-  houseNumber: {
-    type: Number,
-    required: true,
-    trim: true,
-    minLength: 1,
-  },
-  zip: {
-    type: Number,
-    trim: true,
-    minLength: 4,
-    default: 0,
-  },
 });
 
 module.exports = Address;
