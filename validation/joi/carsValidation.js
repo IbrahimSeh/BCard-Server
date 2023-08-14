@@ -7,8 +7,8 @@ const createCarSchema = Joi.object({
     subType: Joi.string().max(256).allow(""),
   }),
   yearOfProduction: Joi.number().min(2).max(3000).required(),
-  previousOwners: Joi.number().min(2).max(3000).required(),
-  kilometers: Joi.number().allow(""),
+  previousOwners: Joi.number().max(3000).required(),
+  kilometers: Joi.number().max(2000000).allow(""),
   engine: Joi.object().keys({
     engineType: Joi.string().max(256).allow(""),
     fuelType: Joi.string().required(),
@@ -20,15 +20,11 @@ const createCarSchema = Joi.object({
     email: Joi.string()
       .regex(
         new RegExp(/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/)
-      ),
+      ).allow(""),
   }),
   image: Joi.object().keys({
-    url: Joi.string().regex(
-      new RegExp(
-        /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/
-      )
-    ),
-    alt: Joi.string().min(2).max(256).required(),
+    url: Joi.string(),
+    alt: Joi.string().min(2).max(256),
   }),
   address: Joi.object().keys({
     state: Joi.string().min(2).max(256).allow(''),
