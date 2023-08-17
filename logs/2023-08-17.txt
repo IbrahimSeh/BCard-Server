@@ -49,3 +49,4 @@
 2023-08-17 10:04:30.609Z 400 GET http://localhost:8181/api/cars/undefined Bad Request
 2023-08-17 10:05:20.768Z 400 GET http://localhost:8181/api/cars/undefined Bad Request
 2023-08-17 10:07:04.014Z 400 GET http://localhost:8181/api/cars/undefined Bad Request
+2023-08-17 11:46:53.324Z 404 GET http://localhost:8181/d Not Found
