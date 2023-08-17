@@ -36,12 +36,12 @@ router.get("/my-cars", tokenMw, async (req, res) => {
     }
 });
 
-//http://localhost:8181/api/cars/:id
-router.get("/:id", async (req, res) => {
+//http://localhost:8181/api/cars/:carId
+router.get("/:carId", async (req, res) => {
     try {
-        const validateID = isValidObjectId(req.params.id);
+        const validateID = isValidObjectId(req.params.carId);
         if (!validateID) throw new CustomError("object-id is not a valid MongodbID");
-        const carFromDB = await carQueriesModel.getCardById(req.params.id);
+        const carFromDB = await carQueriesModel.getCarById(req.params.carId);
         if (!carFromDB) throw new CustomError("Sorry ,car not found in database !");
         res.json(carFromDB);
     } catch (err) {
@@ -52,10 +52,8 @@ router.get("/:id", async (req, res) => {
 //http://localhost:8181/api/cars
 router.post("/", tokenMw, isAdminMW, async (req, res) => {
     try {
-        console.log('here');
         console.log('car from user = ', req.body);
         await carsValidationService.createCarValidation(req.body);
-        console.log('here2');
         let normalCar = await normalizeCar(req.body, jwt.decode(req.headers["x-auth-token"])._id);
         const dataFromMongoose = await carQueriesModel.createCar(normalCar);
         res.json(dataFromMongoose);
