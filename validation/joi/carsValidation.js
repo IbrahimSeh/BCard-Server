@@ -23,8 +23,8 @@ const createCarSchema = Joi.object({
       ).allow(""),
   }),
   image: Joi.object().keys({
-    url: Joi.string(),
-    alt: Joi.string().min(2).max(256),
+    url: Joi.array(),
+    alt: Joi.array(),
   }),
   address: Joi.object().keys({
     state: Joi.string().min(2).max(256).allow(''),

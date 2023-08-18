@@ -8,6 +8,7 @@ const fs = require('fs/promises');
 const initialData = require("./initialData/initialData");
 const apiRouter = require("./routes/api");
 const config = require("config");
+const bodyParser = require('body-parser')
 const portNumber = config.get("portNumber");
 
 var app = express();
@@ -28,6 +29,9 @@ async function writetoFile(tokens, req, res) {
         console.log(err);
     }
 }
+
+app.use(bodyParser.json({ limit: "1mb" }));
+app.use(bodyParser.urlencoded({ extended: true, limit: "1mb" }))
 
 app.use(
     logger((tokens, req, res) => {

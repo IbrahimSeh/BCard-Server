@@ -52,7 +52,6 @@ router.get("/:carId", async (req, res) => {
 //http://localhost:8181/api/cars
 router.post("/", tokenMw, isAdminMW, async (req, res) => {
     try {
-        console.log('car from user = ', req.body);
         await carsValidationService.createCarValidation(req.body);
         let normalCar = await normalizeCar(req.body, jwt.decode(req.headers["x-auth-token"])._id);
         const dataFromMongoose = await carQueriesModel.createCar(normalCar);
@@ -69,23 +68,15 @@ router.post("/", tokenMw, isAdminMW, async (req, res) => {
 router.put("/:id", tokenMw, isAdminMW, async (req, res) => {
     try {
         //joi the id car in isBusinessOwnerMW
-        console.log('here1');
         await carsValidationService.createCarValidation(req.body);
-
-        console.log('here2');
         let normalCar = await normalizeCar(req.body, jwt.decode(req.headers["x-auth-token"])._id);
-        console.log('here3');
         const carFromDB = await carQueriesModel.getCarById(req.params.id);
-        console.log('here 4');
         if (!carFromDB) throw new CustomError("Sorry ,car not found in database !");
-        console.log('here 5');
         const updatedCar = await carQueriesModel.updateCar(
             req.params.id,
             normalCar
         );
-        console.log('here 6');
         res.json(updatedCar);
-        console.log('here 7');
     } catch (err) {
         if (err.hasOwnProperty('details')) {
             return res.status(400).send(err.details[0].message)
