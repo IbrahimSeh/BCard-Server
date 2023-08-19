@@ -7,7 +7,7 @@ const createCarSchema = Joi.object({
     subType: Joi.string().max(256).allow(""),
   }),
   yearOfProduction: Joi.number().min(2).max(3000).required(),
-  previousOwners: Joi.number().max(3000).required(),
+  previousOwners: Joi.number().max(300).required(),
   kilometers: Joi.number().max(2000000).allow(""),
   engine: Joi.object().keys({
     engineType: Joi.string().max(256).allow(""),
@@ -42,4 +42,4 @@ const validateCarSchema = (userInput) => {
 
 module.exports = {
   validateCarSchema,
-};
+};  
