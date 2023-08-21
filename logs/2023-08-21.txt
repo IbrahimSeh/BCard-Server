@@ -1,0 +1,2 @@
+2023-08-21 09:38:30.298Z 400 GET http://localhost:8181/api/users/userInfo Bad Request
+2023-08-21 09:39:58.974Z 400 GET http://localhost:8181/api/users/userInfo Bad Request
