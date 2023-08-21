@@ -4,6 +4,7 @@ const hashService = require("../../utils/hash/hashService");
 const {
     registerUserValidation,
     loginUserValidation,
+    EditUserValidation,
 } = require("../../validation/userValidationService");
 const normalizeUser = require("../../model/usersService/helpers/normalizationUserService");
 const userQueriesModel = require("../../model/usersService/usersQueries");
@@ -102,11 +103,12 @@ router.put("/:id", tokenMw, registeredUserMw, async (req, res) => {
     try {
         const validateID = isValidObjectId(req.params.id);
         if (!validateID) throw new CustomError("object-id is not a valid MongodbID");
-        await registerUserValidation(req.body);
+        await EditUserValidation(req.body);
         const userFromDB = await userQueriesModel.getUserById(req.params.id);
         if (!userFromDB) throw new CustomError("Sorry ,user not found in database !");
         //if the client side try to update email to exist email in DB , mongo will reject
         //update data in DB
+        console.log('req.body = ', req.body);
         await userQueriesModel.findByIdAndUpdate(req.params.id, req.body);
         res.json(req.body);
     } catch (err) {
