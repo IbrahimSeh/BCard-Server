@@ -122,6 +122,31 @@ router.put("/:id", tokenMw, registeredUserMw, async (req, res) => {
     }
 });
 
+//http://localhost:8181/api/users/setpassword/:id
+router.put("/setpassword/:id", tokenMw, registeredUserMw, async (req, res) => {
+    try {
+        const validateID = isValidObjectId(req.params.id);
+        if (!validateID) throw new CustomError("object-id is not a valid MongodbID");
+        await PasswordUserValidation(req.body);
+        const userFromDB = await userQueriesModel.getUserById(req.params.id);
+        if (!userFromDB) throw new CustomError("Sorry ,user not found in database !");
+        //if the client side try to update email to exist email in DB , mongo will reject
+        //update data in DB
+        console.log('req.body = ', req.body);
+        await userQueriesModel.findByIdAndUpdate(req.params.id, req.body);
+        res.json(req.body);
+    } catch (err) {
+        if (err.hasOwnProperty('details')) {
+            return res.status(400).send(err.details[0].message)
+        }
+        if (err.hasOwnProperty('keyValue')) {
+            return res.status(400).send(err.keyValue.email + " is already exist in database");
+        }
+        res.status(400).json(err);
+    }
+});
+
+
 //http://localhost:8181/api/users/:id
 router.patch("/:id", tokenMw, registeredUserMw, async (req, res) => {
     try {
