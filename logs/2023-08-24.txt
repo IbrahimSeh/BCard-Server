@@ -10,3 +10,4 @@
 2023-08-24 07:08:30.288Z 400 POST http://localhost:8181/api/users/login Bad Request
 2023-08-24 07:08:41.125Z 400 POST http://localhost:8181/api/users/login Bad Request
 2023-08-24 07:09:09.478Z 400 POST http://localhost:8181/api/users/login Bad Request
+2023-08-24 07:58:26.786Z 404 GET http://localhost:8181/api/cards/my-cards Not Found
