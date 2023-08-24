@@ -5,6 +5,7 @@ const {
     registerUserValidation,
     loginUserValidation,
     EditUserValidation,
+    PasswordUserValidation,
 } = require("../../validation/userValidationService");
 const normalizeUser = require("../../model/usersService/helpers/normalizationUserService");
 const userQueriesModel = require("../../model/usersService/usersQueries");
@@ -132,8 +133,8 @@ router.put("/setpassword/:id", tokenMw, registeredUserMw, async (req, res) => {
         if (!userFromDB) throw new CustomError("Sorry ,user not found in database !");
         //if the client side try to update email to exist email in DB , mongo will reject
         //update data in DB
-        console.log('req.body = ', req.body);
-        await userQueriesModel.findByIdAndUpdate(req.params.id, req.body);
+        req.body.password = await hashService.generateHash(req.body.password);
+        await userQueriesModel.findOneAndUpdate({ _id: req.params.id }, req.body);
         res.json(req.body);
     } catch (err) {
         if (err.hasOwnProperty('details')) {

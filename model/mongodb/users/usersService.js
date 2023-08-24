@@ -21,6 +21,10 @@ const findByIdAndUpdate = (id, userData) => {
   return User.findByIdAndUpdate(id, userData);
 }
 
+const findOneAndUpdate = (id, userData) => {
+  return User.findOneAndUpdate(id, userData);
+}
+
 const deleteUser = (id) => {
   return User.findByIdAndDelete(id);
 }
@@ -31,5 +35,6 @@ module.exports = {
   getAllUsers,
   getUserById,
   findByIdAndUpdate,
+  findOneAndUpdate,
   deleteUser,
 };

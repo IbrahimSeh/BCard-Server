@@ -32,6 +32,12 @@ const findByIdAndUpdate = (id, userData) => {
   }
 }
 
+const findOneAndUpdate = (id, userData) => {
+  if (dbOption === "mongo") {
+    return usersServiceMongo.findOneAndUpdate(id, userData);
+  }
+}
+
 const deleteUser = (id) => {
   if (dbOption === "mongo") {
     return usersServiceMongo.deleteUser(id);
@@ -44,5 +50,6 @@ module.exports = {
   getAllUsers,
   getUserById,
   findByIdAndUpdate,
+  findOneAndUpdate,
   deleteUser,
 };
