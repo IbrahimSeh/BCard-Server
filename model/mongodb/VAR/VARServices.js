@@ -9,9 +9,9 @@ const getAllVARs = () => {
     return VAR.find();
 };
 
-// const getCarById = (id) => {
-//     return Car.findById(id);
-// };
+const getVARById = (id) => {
+    return VAR.findById(id);
+};
 
 // const getUserCars = (userID) => {
 //     return Car.find({ user_id: userID });
@@ -34,7 +34,7 @@ const getAllVARs = () => {
 module.exports = {
     createVehicleAdvertisingRequests,
     getAllVARs,
-    // getCarById,
+    getVARById,
     // getUserCars,
     // getCarByBizNumber,
     // updateCar,

@@ -13,11 +13,11 @@ const getAllVARs = () => {
     }
 };
 
-// const getCarById = (id) => {
-//     if (dbOption === "mongo") {
-//         return carsServiceMongo.getCarById(id);
-//     }
-// };
+const getVARById = (id) => {
+    if (dbOption === "mongo") {
+        return varsServiceMongo.getVARById(id);
+    }
+};
 
 // const getUserCars = (userID) => {
 //     if (dbOption === "mongo") {
@@ -52,7 +52,7 @@ const getAllVARs = () => {
 module.exports = {
     createVAR,
     getAllVARs,
-    // getCarById,
+    getVARById,
     // getUserCars,
     // getCarByBizNumber,
     // updateCar,

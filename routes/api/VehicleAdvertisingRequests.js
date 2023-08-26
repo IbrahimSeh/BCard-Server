@@ -6,6 +6,8 @@ const varQueriesModel = require("../../model/varsService/varsQueries");
 const normalizeCar = require("../../model/carsService/helpers/normalizationCarService");
 const isSubscriptionMw = require("../../middleware/isSubscriptionMW");
 const tokenMw = require("../../middleware/verifyTokenMW");
+const { isValidObjectId } = require("../../utils/objectID/verifyObjectID");
+const CustomError = require("../../utils/CustomError");
 
 
 //http://localhost:8181/api/VAR
@@ -13,6 +15,19 @@ router.get("/", async (req, res) => {
     try {
         const allCars = await varQueriesModel.getAllVARs();
         res.json(allCars);
+    } catch (err) {
+        res.status(400).json(err);
+    }
+});
+
+//http://localhost:8181/api/VAR/:VARId
+router.get("/:VARId", async (req, res) => {
+    try {
+        const validateID = isValidObjectId(req.params.VARId);
+        if (!validateID) throw new CustomError("object-id is not a valid MongodbID");
+        const carFromDB = await varQueriesModel.getVARById(req.params.VARId);
+        if (!carFromDB) throw new CustomError("Sorry ,car not found in database !");
+        res.json(carFromDB);
     } catch (err) {
         res.status(400).json(err);
     }
