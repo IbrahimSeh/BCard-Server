@@ -1,2 +1,7 @@
 2023-08-26 08:32:56.839Z 400 POST http://localhost:8181/api/VAR/ Bad Request
 2023-08-26 08:35:34.216Z 400 POST http://localhost:8181/api/VAR/ Bad Request
+2023-08-26 08:59:38.513Z 400 POST http://localhost:8181/api/VAR/ Bad Request
+2023-08-26 09:03:40.284Z 400 POST http://localhost:8181/api/VAR/ Bad Request
+2023-08-26 09:05:48.687Z 400 POST http://localhost:8181/api/VAR/ Bad Request
+2023-08-26 09:07:12.533Z 400 POST http://localhost:8181/api/VAR/ Bad Request
+2023-08-26 09:42:58.683Z 400 GET http://localhost:8181/api/users/getAllUsers Bad Request

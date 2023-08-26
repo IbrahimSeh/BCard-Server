@@ -23,9 +23,10 @@ router.get("/", async (req, res) => {
 
 //http://localhost:8181/api/cars/my-cars
 router.get("/my-cars", tokenMw, async (req, res) => {
+    console.log('here');
     try {
         /*
-        I guess you don't need to check if the user is a business because it is possible that he was a business and became normal,by (PATCH) http://localhost:8181/api/users/:id
+        I guess you don't need to check if the user is a subscription because it is possible that he was a subscription and became normal,by (PATCH) http://localhost:8181/api/users/:id
         */
         const userCars = await carQueriesModel.getUserCars(req.userData._id);
         return res.send(userCars);
