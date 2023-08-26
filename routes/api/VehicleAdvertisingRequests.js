@@ -7,6 +7,17 @@ const normalizeCar = require("../../model/carsService/helpers/normalizationCarSe
 const isSubscriptionMw = require("../../middleware/isSubscriptionMW");
 const tokenMw = require("../../middleware/verifyTokenMW");
 
+
+//http://localhost:8181/api/VAR
+router.get("/", async (req, res) => {
+    try {
+        const allCars = await varQueriesModel.getAllVARs();
+        res.json(allCars);
+    } catch (err) {
+        res.status(400).json(err);
+    }
+});
+
 //http://localhost:8181/api/VAR
 router.post("/", tokenMw, isSubscriptionMw, async (req, res) => {
     try {

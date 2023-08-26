@@ -5,9 +5,9 @@ const createVehicleAdvertisingRequests = (carToSave) => {
     return VehicleAdvertisingRequests.save();
 };
 
-// const getAllCars = () => {
-//     return Car.find();
-// };
+const getAllVARs = () => {
+    return VAR.find();
+};
 
 // const getCarById = (id) => {
 //     return Car.findById(id);
@@ -33,7 +33,7 @@ const createVehicleAdvertisingRequests = (carToSave) => {
 
 module.exports = {
     createVehicleAdvertisingRequests,
-    // getAllCars,
+    getAllVARs,
     // getCarById,
     // getUserCars,
     // getCarByBizNumber,

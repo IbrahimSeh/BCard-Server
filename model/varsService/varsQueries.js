@@ -7,11 +7,11 @@ const createVAR = (carToSave) => {
     }
 };
 
-// const getAllCars = () => {
-//     if (dbOption === "mongo") {
-//         return carsServiceMongo.getAllCars();
-//     }
-// };
+const getAllVARs = () => {
+    if (dbOption === "mongo") {
+        return varsServiceMongo.getAllVARs();
+    }
+};
 
 // const getCarById = (id) => {
 //     if (dbOption === "mongo") {
@@ -51,7 +51,7 @@ const createVAR = (carToSave) => {
 
 module.exports = {
     createVAR,
-    // getAllCars,
+    getAllVARs,
     // getCarById,
     // getUserCars,
     // getCarByBizNumber,
