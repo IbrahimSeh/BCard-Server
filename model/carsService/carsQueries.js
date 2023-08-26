@@ -7,7 +7,6 @@ const createCar = (carToSave) => {
   }
 };
 
-//used
 const getAllCars = () => {
   if (dbOption === "mongo") {
     return carsServiceMongo.getAllCars();

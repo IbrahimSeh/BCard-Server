@@ -35,5 +35,6 @@ const carSchema = new mongoose.Schema({
 });
 
 const Car = mongoose.model("cars", carSchema);
-
+const VAR = mongoose.model("VehicleAdvertisingRequests", carSchema); // VAR = VehicleAdvertisingRequests
 module.exports = Car;
+module.exports = VAR;
