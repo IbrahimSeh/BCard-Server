@@ -6,6 +6,8 @@ const varQueriesModel = require("../../model/varsService/varsQueries");
 const normalizeCar = require("../../model/carsService/helpers/normalizationCarService");
 const isSubscriptionMw = require("../../middleware/isSubscriptionMW");
 const tokenMw = require("../../middleware/verifyTokenMW");
+const registeredUserMw = require("../../middleware/registeredUserMw");
+const isAdminMw = require("../../middleware/isAdminMw");
 const { isValidObjectId } = require("../../utils/objectID/verifyObjectID");
 const CustomError = require("../../utils/CustomError");
 
@@ -20,12 +22,12 @@ router.get("/", async (req, res) => {
     }
 });
 
-//http://localhost:8181/api/VAR/:VARId
-router.get("/:VARId", async (req, res) => {
+//http://localhost:8181/api/VAR/:id
+router.get("/:id", async (req, res) => {
     try {
-        const validateID = isValidObjectId(req.params.VARId);
+        const validateID = isValidObjectId(req.params.id);
         if (!validateID) throw new CustomError("object-id is not a valid MongodbID");
-        const carFromDB = await varQueriesModel.getVARById(req.params.VARId);
+        const carFromDB = await varQueriesModel.getVARById(req.params.id);
         if (!carFromDB) throw new CustomError("Sorry ,car not found in database !");
         res.json(carFromDB);
     } catch (err) {
@@ -37,8 +39,8 @@ router.get("/:VARId", async (req, res) => {
 router.post("/", tokenMw, isSubscriptionMw, async (req, res) => {
     try {
         await carsValidationService.createCarValidation(req.body);
-        let normalCar = await normalizeCar(req.body, jwt.decode(req.headers["x-auth-token"])._id);
-        const dataFromMongoose = await varQueriesModel.createVAR(normalCar);
+        let normalVAR = await normalizeCar(req.body, jwt.decode(req.headers["x-auth-token"])._id);
+        const dataFromMongoose = await varQueriesModel.createVAR(normalVAR);
         res.json(dataFromMongoose);
     } catch (err) {
         if (err.hasOwnProperty('details')) {
@@ -48,5 +50,28 @@ router.post("/", tokenMw, isSubscriptionMw, async (req, res) => {
     }
 });
 
-
+//http://localhost:8181/api/VAR/:id
+router.patch("/:id", tokenMw, isAdminMw, async (req, res) => {
+    try {
+        const validateID = isValidObjectId(req.params.id);
+        console.log('here1');
+        if (!validateID) throw new CustomError("object-id is not a valid MongodbID");
+        console.log('here2');
+        const VARFromDB = await varQueriesModel.getVARById(req.params.id);
+        console.log('here3');
+        if (!VARFromDB) throw new CustomError("Sorry ,user not found in database !");
+        console.log('here4');
+        VARFromDB.toPublish = !VARFromDB.toPublish;
+        console.log('here5');
+        // console.log('req.params.id = ', req.params.id);
+        // console.log('VARFromDB = ', VARFromDB);
+        await varQueriesModel.updateVAR(req.params.id, VARFromDB);//update to publish (true/false)
+        //add VARFromDB to car collection
+        //remove VARFromDB from vehicleadvertisingrequests
+        console.log('here6');
+        res.json(VARFromDB);
+    } catch (err) {
+        res.status(400).json(err);
+    }
+});
 module.exports = router;

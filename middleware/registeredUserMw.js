@@ -2,6 +2,8 @@ const CustomError = require("../utils/CustomError");
 
 const registeredUserMw = async (req, res, next) => {
     try {
+        console.log('req.userData._id = ', req.userData._id);
+        console.log('req.params.id = ', req.params.id);
         if (req.userData._id == req.params.id) {
             next();
         } else {

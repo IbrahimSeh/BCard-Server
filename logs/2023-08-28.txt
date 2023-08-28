@@ -1,0 +1,8 @@
+2023-08-28 18:00:35.277Z 401 PATCH http://localhost:8181/api/VAR/64e9c915fef5857450b7486b Unauthorized
+2023-08-28 18:01:40.260Z 401 PATCH http://localhost:8181/api/VAR/64e9c915fef5857450b7486b Unauthorized
+2023-08-28 18:02:58.380Z 401 PATCH http://localhost:8181/api/VAR/64e9c915fef5857450b7486b Unauthorized
+2023-08-28 18:04:27.404Z 400 PATCH http://localhost:8181/api/VAR/64e9c915fef5857450b7486b Bad Request
+2023-08-28 18:05:21.735Z 400 PATCH http://localhost:8181/api/VAR/64e9c915fef5857450b7486b Bad Request
+2023-08-28 18:06:13.297Z 400 PATCH http://localhost:8181/api/VAR/64e9c915fef5857450b7486b Bad Request
+2023-08-28 18:08:23.567Z 400 PATCH http://localhost:8181/api/VAR/64e9c915fef5857450b7486b Bad Request
+2023-08-28 18:09:26.560Z 400 PATCH http://localhost:8181/api/VAR/64e9c915fef5857450b7486b Bad Request

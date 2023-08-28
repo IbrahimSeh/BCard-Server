@@ -21,11 +21,12 @@ const getVARById = (id) => {
 //     return Car.findOne({ bizNumber }, { bizNumber: 1, _id: 0 });
 // };
 
-// const updateCar = (id, carToUpdate) => {
-//     return Car.findByIdAndUpdate(id, carToUpdate, {
-//         new: true,
-//     });
-// };
+const updateVAR = (id, VARToUpdate) => {
+    console.log('hcwej');
+    return VAR.findByIdAndUpdate(id, VARToUpdate, {
+        new: true,
+    });
+};
 
 // const deleteCar = (id) => {
 //     return Car.findByIdAndDelete(id);
@@ -35,8 +36,8 @@ module.exports = {
     createVehicleAdvertisingRequests,
     getAllVARs,
     getVARById,
+    updateVAR,
     // getUserCars,
     // getCarByBizNumber,
-    // updateCar,
     // deleteCar,
 };
