@@ -9,7 +9,7 @@ const VARRouter = require("./api/VehicleAdvertisingRequests"); // VAR = VehicleA
 //http://localhost:8181/api/users/
 router.use("/users", usersRouter);
 
-//http://localhost:8181/api/cards
+//http://localhost:8181/api/cars
 router.use("/cars", carsRouter);
 
 //http://localhost:8181/api/admin

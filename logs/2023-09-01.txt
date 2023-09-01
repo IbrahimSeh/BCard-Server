@@ -7,3 +7,6 @@
 2023-09-01 12:46:00.191Z 400 GET http://localhost:8181/api/cars/64f1dcd23166d7e9f9526aa0 Bad Request
 2023-09-01 12:51:10.070Z 400 GET http://localhost:8181/api/cars/64f18833311df53c1a3b1883 Bad Request
 2023-09-01 12:53:15.038Z 404 GET http://localhost:8181/api/cards/my-cards Not Found
+2023-09-01 12:56:42.614Z 404 GET http://localhost:8181/api/cards/my-cards Not Found
+2023-09-01 12:57:18.028Z 404 GET http://localhost:8181/api/cards/my-cars Not Found
+2023-09-01 13:14:08.725Z 404 PATCH http://localhost:8181/api/cars/car-like/64f1cdee311df53c1a3b19f6 Not Found
