@@ -1,4 +1,4 @@
-const VAR = require("./VehicleAdvertisingRequests"); // VAR = VehicleAdvertisingRequests
+const VAR = require("./VehicleAdvertisingRequests"); // VAR = Vehicle Advertising Requests
 
 const createVehicleAdvertisingRequests = (carToSave) => {
     let VehicleAdvertisingRequests = new VAR(carToSave);

@@ -11,3 +11,10 @@
 2023-09-01 12:57:18.028Z 404 GET http://localhost:8181/api/cards/my-cars Not Found
 2023-09-01 13:14:08.725Z 404 PATCH http://localhost:8181/api/cars/car-like/64f1cdee311df53c1a3b19f6 Not Found
 2023-09-01 14:26:25.695Z 400 GET http://localhost:8181/api/cars/get-my-fav-cars Bad Request
+2023-09-01 15:41:48.719Z 404 PATCH http://localhost:8181/api/VAR/car-like/64f1cef8311df53c1a3b1a09 Not Found
+2023-09-01 15:44:28.312Z 404 PATCH http://localhost:8181/api/VAR/car-like/64f1cef8311df53c1a3b1a09 Not Found
+2023-09-01 15:49:01.695Z 404 PATCH http://localhost:8181/api/VAR/car-like/64f1cef8311df53c1a3b1a09 Not Found
+2023-09-01 16:04:40.748Z 404 PATCH http://localhost:8181/api/VAR/car-like/64f1cef8311df53c1a3b1a09 Not Found
+2023-09-01 16:05:06.847Z 404 PATCH http://localhost:8181/api/VAR/car-like/64f1cef8311df53c1a3b1a09 Not Found
+2023-09-01 16:10:46.340Z 400 PATCH http://localhost:8181/api/VAR/VAR-like/64f1cef8311df53c1a3b1a09 Bad Request
+2023-09-01 16:12:05.747Z 400 PATCH http://localhost:8181/api/VAR/VAR-like/64f1cef8311df53c1a3b1a09 Bad Request

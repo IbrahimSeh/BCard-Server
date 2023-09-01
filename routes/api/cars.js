@@ -138,25 +138,20 @@ router.delete("/:id", tokenMw, isAdminOrBizOwnerMW(false, true, true), async (re
 
 router.patch("/car-like/:id", tokenMw, async (req, res) => {
     try {
-        const user = req.user;
-        let card = await Card.findOne({ _id: req.params.id });
-
-        const cardLikes = card.likes.find((id) => id === user._id);
-
-        if (!cardLikes) {
-            card.likes.push(user._id);
-            card = await card.save();
-            return res.send(card);
+        const user = req.userData;
+        let car = await carQueriesModel.getCarById(req.params.id);
+        const carLikes = car.likes.find((id) => id === user._id);
+        if (!carLikes) {
+            car.likes.push(user._id);
+            car = await car.save();
+            return res.send(car);
         }
-
-        const cardFiltered = card.likes.filter((id) => id !== user._id);
-        card.likes = cardFiltered;
-        card = await card.save();
-        return res.send(card);
-    } catch (error) {
-        console.log(chalk.redBright("Could not edit like:", error.message));
-        return res.status(500).send(error.message);
+        const carFiltered = car.likes.filter((id) => id !== user._id);
+        car.likes = carFiltered;
+        car = await car.save();
+        return res.send(car);
+    } catch (err) {
+        res.status(400).json(err);
     }
 });
-
 module.exports = router;

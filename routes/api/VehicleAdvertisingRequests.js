@@ -87,4 +87,23 @@ router.delete("/:id", tokenMw, isAdminMw, async (req, res) => {
     }
 });
 
+router.patch("/VAR-like/:id", tokenMw, async (req, res) => {
+    try {
+        const user = req.userData;
+        let VAR = await varQueriesModel.getVARById(req.params.id); // VAR = Vehicle Advertising Requests
+        const varLikes = VAR.likes.find((id) => id === user._id);
+        if (!varLikes) {
+            VAR.likes.push(user._id);
+            VAR = await VAR.save();
+            return res.send(VAR);
+        }
+        const carFiltered = VAR.likes.filter((id) => id !== user._id);
+        VAR.likes = carFiltered;
+        VAR = await VAR.save();
+        return res.send(VAR);
+    } catch (err) {
+        res.status(400).json(err);
+    }
+});
+
 module.exports = router;
