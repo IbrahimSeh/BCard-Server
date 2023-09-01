@@ -54,24 +54,27 @@ router.post("/", tokenMw, isSubscriptionMw, async (req, res) => {
 router.patch("/:id", tokenMw, isAdminMw, async (req, res) => {
     try {
         const validateID = isValidObjectId(req.params.id);
-        console.log('here1');
         if (!validateID) throw new CustomError("object-id is not a valid MongodbID");
-        console.log('here2');
         const VARFromDB = await varQueriesModel.getVARById(req.params.id);
-        console.log('here3');
         if (!VARFromDB) throw new CustomError("Sorry ,user not found in database !");
-        console.log('here4');
         VARFromDB.toPublish = !VARFromDB.toPublish;
-        console.log('here5');
-        // console.log('req.params.id = ', req.params.id);
-        // console.log('VARFromDB = ', VARFromDB);
         await varQueriesModel.updateVAR(req.params.id, VARFromDB);//update to publish (true/false)
-        //add VARFromDB to car collection
-        //remove VARFromDB from vehicleadvertisingrequests
-        console.log('here6');
         res.json(VARFromDB);
     } catch (err) {
         res.status(400).json(err);
     }
 });
+
+//http://localhost:8181/api/VAR/:id
+router.delete("/:id", tokenMw, isAdminMw, async (req, res) => {
+    try {
+        //joi the id car in isAdminOrBizOwnerMW
+        const deletedCar = await varQueriesModel.deleteVAR(req.params.id);
+        if (!deletedCar) throw new CustomError("Sorry ,car not found in database !");
+        res.json(deletedCar);
+    } catch (err) {
+        res.status(400).json(err);
+    }
+});
+
 module.exports = router;

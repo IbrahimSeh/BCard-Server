@@ -28,9 +28,9 @@ const updateVAR = (id, VARToUpdate) => {
     });
 };
 
-// const deleteCar = (id) => {
-//     return Car.findByIdAndDelete(id);
-// };
+const deleteVAR = (id) => {
+    return VAR.findByIdAndDelete(id);
+};
 
 module.exports = {
     createVehicleAdvertisingRequests,
@@ -39,5 +39,5 @@ module.exports = {
     updateVAR,
     // getUserCars,
     // getCarByBizNumber,
-    // deleteCar,
+    deleteVAR,
 };

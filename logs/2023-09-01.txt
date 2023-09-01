@@ -1,0 +1,3 @@
+2023-09-01 06:18:12.911Z 400 DELETE http://localhost:8181/api/VAR/64e9c915fef5857450b7486b Bad Request
+2023-09-01 06:38:36.221Z 401 POST http://localhost:8181/api/VAR Unauthorized
+2023-09-01 06:39:14.251Z 400 POST http://localhost:8181/api/VAR Bad Request

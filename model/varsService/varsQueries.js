@@ -38,11 +38,11 @@ const updateVAR = (id, VARToUpdate) => {
     }
 };
 
-// const deleteCar = (id) => {
-//     if (dbOption === "mongo") {
-//         return carsServiceMongo.deleteCar(id);
-//     }
-// };
+const deleteVAR = (id) => {
+    if (dbOption === "mongo") {
+        return varsServiceMongo.deleteVAR(id);
+    }
+};
 
 // const carToLike = (id) => {
 //     if (dbOption === "mongo") {
@@ -57,6 +57,6 @@ module.exports = {
     updateVAR,
     // getUserCars,
     // getCarByBizNumber,
-    // deleteCar,
+    deleteVAR,
     // carToLike,
 };
