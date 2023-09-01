@@ -17,6 +17,10 @@ const getUserCars = (userID) => {
   return Car.find({ user_id: userID });
 };
 
+const getUserFavCars = (userID) => {
+  return Car.find({ likes: userID });
+};
+
 const getCarByBizNumber = (bizNumber) => {
   return Car.findOne({ bizNumber }, { bizNumber: 1, _id: 0 });
 };
@@ -36,6 +40,7 @@ module.exports = {
   getAllCars,
   getCarById,
   getUserCars,
+  getUserFavCars,
   getCarByBizNumber,
   updateCar,
   deleteCar,

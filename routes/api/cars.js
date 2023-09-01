@@ -34,13 +34,23 @@ router.get("/my-cars", tokenMw, async (req, res) => {
     }
 });
 
-//http://localhost:8181/api/cars/:carId
-router.get("/:carId", async (req, res) => {
+//http://localhost:8181/api/cars/get-my-fav-cars
+router.get("/get-my-fav-cars", tokenMw, async (req, res) => {
+    try {
+        const userCars = await carQueriesModel.getUserFavCars(req.userData._id);
+        return res.send(userCars);
+    } catch (err) {
+        res.status(400).json(err);
+    }
+});
+
+//http://localhost:8181/api/cars/:id
+router.get("/:id", async (req, res) => {
     try {
 
-        const validateID = isValidObjectId(req.params.carId);
+        const validateID = isValidObjectId(req.params.id);
         if (!validateID) throw new CustomError("object-id is not a valid MongodbID");
-        const carFromDB = await carQueriesModel.getCarById(req.params.carId);
+        const carFromDB = await carQueriesModel.getCarById(req.params.id);
         if (!carFromDB) throw new CustomError("Sorry ,car not found in database !");
         res.json(carFromDB);
     } catch (err) {
@@ -123,6 +133,29 @@ router.delete("/:id", tokenMw, isAdminOrBizOwnerMW(false, true, true), async (re
         res.json(deletedCar);
     } catch (err) {
         res.status(400).json(err);
+    }
+});
+
+router.patch("/car-like/:id", tokenMw, async (req, res) => {
+    try {
+        const user = req.user;
+        let card = await Card.findOne({ _id: req.params.id });
+
+        const cardLikes = card.likes.find((id) => id === user._id);
+
+        if (!cardLikes) {
+            card.likes.push(user._id);
+            card = await card.save();
+            return res.send(card);
+        }
+
+        const cardFiltered = card.likes.filter((id) => id !== user._id);
+        card.likes = cardFiltered;
+        card = await card.save();
+        return res.send(card);
+    } catch (error) {
+        console.log(chalk.redBright("Could not edit like:", error.message));
+        return res.status(500).send(error.message);
     }
 });
 

@@ -10,3 +10,4 @@
 2023-09-01 12:56:42.614Z 404 GET http://localhost:8181/api/cards/my-cards Not Found
 2023-09-01 12:57:18.028Z 404 GET http://localhost:8181/api/cards/my-cars Not Found
 2023-09-01 13:14:08.725Z 404 PATCH http://localhost:8181/api/cars/car-like/64f1cdee311df53c1a3b19f6 Not Found
+2023-09-01 14:26:25.695Z 400 GET http://localhost:8181/api/cars/get-my-fav-cars Bad Request
