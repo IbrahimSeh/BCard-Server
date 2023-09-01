@@ -1,3 +1,9 @@
 2023-09-01 06:18:12.911Z 400 DELETE http://localhost:8181/api/VAR/64e9c915fef5857450b7486b Bad Request
 2023-09-01 06:38:36.221Z 401 POST http://localhost:8181/api/VAR Unauthorized
 2023-09-01 06:39:14.251Z 400 POST http://localhost:8181/api/VAR Bad Request
+2023-09-01 11:29:47.281Z 400 POST http://localhost:8181/api/VAR/ Bad Request
+2023-09-01 12:44:27.412Z 400 GET http://localhost:8181/api/VAR/64f18834311df53c1a3b188b Bad Request
+2023-09-01 12:45:14.894Z 400 GET http://localhost:8181/api/VAR/64f1dcd23166d7e9f9526aa0 Bad Request
+2023-09-01 12:46:00.191Z 400 GET http://localhost:8181/api/cars/64f1dcd23166d7e9f9526aa0 Bad Request
+2023-09-01 12:51:10.070Z 400 GET http://localhost:8181/api/cars/64f18833311df53c1a3b1883 Bad Request
+2023-09-01 12:53:15.038Z 404 GET http://localhost:8181/api/cards/my-cards Not Found

@@ -15,8 +15,18 @@ const CustomError = require("../../utils/CustomError");
 //http://localhost:8181/api/VAR
 router.get("/", async (req, res) => {
     try {
-        const allCars = await varQueriesModel.getAllVARs();
-        res.json(allCars);
+        const allVARs = await varQueriesModel.getAllVARs();
+        res.json(allVARs);
+    } catch (err) {
+        res.status(400).json(err);
+    }
+});
+
+//http://localhost:8181/api/VAR
+router.get("/:flag", async (req, res) => {
+    try {
+        const allVARs = await varQueriesModel.getVARByFlag(req.params.flag);
+        res.json(allVARs);
     } catch (err) {
         res.status(400).json(err);
     }

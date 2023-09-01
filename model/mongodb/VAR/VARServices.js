@@ -17,12 +17,15 @@ const getVARById = (id) => {
 //     return Car.find({ user_id: userID });
 // };
 
+const getVARByFlag = (flag) => {
+    return VAR.find({ toPublish: flag });
+};
+
 // const getCarByBizNumber = (bizNumber) => {
 //     return Car.findOne({ bizNumber }, { bizNumber: 1, _id: 0 });
 // };
 
 const updateVAR = (id, VARToUpdate) => {
-    console.log('hcwej');
     return VAR.findByIdAndUpdate(id, VARToUpdate, {
         new: true,
     });
@@ -37,6 +40,7 @@ module.exports = {
     getAllVARs,
     getVARById,
     updateVAR,
+    getVARByFlag,
     // getUserCars,
     // getCarByBizNumber,
     deleteVAR,

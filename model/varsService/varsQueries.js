@@ -31,9 +31,14 @@ const getVARById = (id) => {
 //     }
 // };
 
+const getVARByFlag = (flag) => {
+    if (dbOption === "mongo") {
+        return varsServiceMongo.getVARByFlag(flag);
+    }
+};
+
 const updateVAR = (id, VARToUpdate) => {
     if (dbOption === "mongo") {
-        console.log('Query');
         return varsServiceMongo.updateVAR(id, VARToUpdate);
     }
 };
@@ -55,6 +60,7 @@ module.exports = {
     getAllVARs,
     getVARById,
     updateVAR,
+    getVARByFlag,
     // getUserCars,
     // getCarByBizNumber,
     deleteVAR,
