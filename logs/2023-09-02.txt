@@ -1,0 +1,1 @@
+2023-09-02 10:26:21.190Z 400 GET http://localhost:8181/api/cars/undefined Bad Request
