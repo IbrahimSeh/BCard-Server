@@ -13,6 +13,10 @@ const getVARById = (id) => {
     return VAR.findById(id);
 };
 
+const getUserFavVars = (userID) => {
+    return VAR.find({ likes: userID });
+};
+
 // const getUserCars = (userID) => {
 //     return Car.find({ user_id: userID });
 // };
@@ -41,6 +45,7 @@ module.exports = {
     getVARById,
     updateVAR,
     getVARByFlag,
+    getUserFavVars,
     // getUserCars,
     // getCarByBizNumber,
     deleteVAR,

@@ -22,6 +22,16 @@ router.get("/", async (req, res) => {
     }
 });
 
+//http://localhost:8181/api/VAR/get-my-fav-vars
+router.get("/get-my-fav-vars", tokenMw, async (req, res) => {
+    try {
+        const userVars = await varQueriesModel.getUserFavVars(req.userData._id);
+        return res.send(userVars);
+    } catch (err) {
+        res.status(400).json(err);
+    }
+});
+
 //http://localhost:8181/api/VAR
 router.get("/:flag", async (req, res) => {
     try {

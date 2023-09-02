@@ -3,3 +3,19 @@
 2023-09-02 12:40:01.546Z 400 PATCH http://localhost:8181/api/cars/car-like/64f18834311df53c1a3b188b Bad Request
 2023-09-02 12:44:26.016Z 400 PATCH http://localhost:8181/api/cars/car-like/64f30c80d130fed8a293ad9c Bad Request
 2023-09-02 12:45:12.924Z 400 PATCH http://localhost:8181/api/cars/car-like/64f18834311df53c1a3b188b Bad Request
+2023-09-02 13:45:32.090Z 400 GET http://localhost:8181/api/VAR/get-my-fav-vars Bad Request
+2023-09-02 13:48:08.969Z 400 GET http://localhost:8181/api/VAR/get-my-fav-vars Bad Request
+2023-09-02 13:50:03.083Z 400 GET http://localhost:8181/api/VAR/get-my-fav-vars Bad Request
+2023-09-02 13:52:33.366Z 400 GET http://localhost:8181/api/VAR/get-my-fav-vars Bad Request
+2023-09-02 13:54:36.270Z 400 GET http://localhost:8181/api/VAR/get-my-fav-vars Bad Request
+2023-09-02 13:58:56.820Z 400 GET http://localhost:8181/api/VAR/get-my-fav-vars Bad Request
+2023-09-02 13:59:34.579Z 400 GET http://localhost:8181/api/VAR/get-my-fav-vars Bad Request
+2023-09-02 14:03:55.139Z 400 GET http://localhost:8181/api/VAR/get-my-fav-vars Bad Request
+2023-09-02 14:04:24.173Z 400 GET http://localhost:8181/api/VAR/get-my-fav-vars Bad Request
+2023-09-02 14:04:58.963Z 400 GET http://localhost:8181/api/VAR/get-my-fav-vars Bad Request
+2023-09-02 14:05:11.852Z 400 GET http://localhost:8181/api/VAR/get-my-fav-vars Bad Request
+2023-09-02 14:05:24.879Z 400 GET http://localhost:8181/api/VAR/get-my-fav-vars Bad Request
+2023-09-02 14:06:41.915Z 400 GET http://localhost:8181/api/VAR/get-my-fav-vars Bad Request
+2023-09-02 14:07:31.629Z 400 GET http://localhost:8181/api/VAR/get-my-fav-vars Bad Request
+2023-09-02 14:08:16.342Z 401 GET http://localhost:8181/api/VAR/get-my-fav-vars Unauthorized
+2023-09-02 14:11:24.469Z 400 PATCH http://localhost:8181/api/cars/car-like/64f18834311df53c1a3b188b Bad Request

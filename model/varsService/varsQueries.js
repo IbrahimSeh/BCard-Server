@@ -19,6 +19,12 @@ const getVARById = (id) => {
     }
 };
 
+const getUserFavVars = (userID) => {
+    if (dbOption === "mongo") {
+        return varsServiceMongo.getUserFavVars(userID);
+    }
+};
+
 // const getUserCars = (userID) => {
 //     if (dbOption === "mongo") {
 //         return carsServiceMongo.getUserCars(userID);
@@ -61,6 +67,7 @@ module.exports = {
     getVARById,
     updateVAR,
     getVARByFlag,
+    getUserFavVars,
     // getUserCars,
     // getCarByBizNumber,
     deleteVAR,
