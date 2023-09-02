@@ -1,1 +1,5 @@
 2023-09-02 10:26:21.190Z 400 GET http://localhost:8181/api/cars/undefined Bad Request
+2023-09-02 12:39:10.502Z 400 PATCH http://localhost:8181/api/cars/car-like/64f30c80d130fed8a293ad9c Bad Request
+2023-09-02 12:40:01.546Z 400 PATCH http://localhost:8181/api/cars/car-like/64f18834311df53c1a3b188b Bad Request
+2023-09-02 12:44:26.016Z 400 PATCH http://localhost:8181/api/cars/car-like/64f30c80d130fed8a293ad9c Bad Request
+2023-09-02 12:45:12.924Z 400 PATCH http://localhost:8181/api/cars/car-like/64f18834311df53c1a3b188b Bad Request
