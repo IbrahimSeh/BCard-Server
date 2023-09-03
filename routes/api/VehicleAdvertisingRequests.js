@@ -32,8 +32,8 @@ router.get("/get-my-fav-vars", tokenMw, async (req, res) => {
     }
 });
 
-//http://localhost:8181/api/VAR
-router.get("/:flag", async (req, res) => {
+//http://localhost:8181/api/VAR/
+router.get("/From-Outside/:flag", async (req, res) => {
     try {
         const allVARs = await varQueriesModel.getVARByFlag(req.params.flag);
         res.json(allVARs);
