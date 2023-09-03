@@ -47,7 +47,6 @@ router.get("/get-my-fav-cars", tokenMw, async (req, res) => {
 //http://localhost:8181/api/cars/:id
 router.get("/:id", async (req, res) => {
     try {
-
         const validateID = isValidObjectId(req.params.id);
         if (!validateID) throw new CustomError("object-id is not a valid MongodbID");
         const carFromDB = await carQueriesModel.getCarById(req.params.id);

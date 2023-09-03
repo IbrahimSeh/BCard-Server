@@ -19,3 +19,5 @@
 2023-09-02 14:07:31.629Z 400 GET http://localhost:8181/api/VAR/get-my-fav-vars Bad Request
 2023-09-02 14:08:16.342Z 401 GET http://localhost:8181/api/VAR/get-my-fav-vars Unauthorized
 2023-09-02 14:11:24.469Z 400 PATCH http://localhost:8181/api/cars/car-like/64f18834311df53c1a3b188b Bad Request
+2023-09-02 15:00:52.758Z 400 POST http://localhost:8181/api/VAR/ Bad Request
+2023-09-02 15:02:18.325Z 400 POST http://localhost:8181/api/VAR/ Bad Request

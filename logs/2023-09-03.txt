@@ -1,0 +1,7 @@
+2023-09-03 05:35:39.908Z 400 GET http://localhost:8181/api/cars/undefined Bad Request
+2023-09-03 05:44:47.058Z 400 GET http://localhost:8181/api/cars/undefined Bad Request
+2023-09-03 05:45:15.889Z 400 GET http://localhost:8181/api/cars/undefined Bad Request
+2023-09-03 05:49:50.521Z 400 GET http://localhost:8181/api/cars/undefined Bad Request
+2023-09-03 05:52:52.105Z 400 GET http://localhost:8181/api/cars/undefined Bad Request
+2023-09-03 05:54:21.587Z 400 GET http://localhost:8181/api/cars/undefined Bad Request
+2023-09-03 06:06:01.899Z 400 GET http://localhost:8181/api/cars/undefined Bad Request
