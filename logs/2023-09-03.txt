@@ -7,3 +7,5 @@
 2023-09-03 06:06:01.899Z 400 GET http://localhost:8181/api/cars/undefined Bad Request
 2023-09-03 06:27:47.337Z 400 POST http://localhost:8181/api/cars/ Bad Request
 2023-09-03 06:57:09.430Z 400 POST http://localhost:8181/api/cars/ Bad Request
+2023-09-03 09:19:40.091Z 400 GET http://localhost:8181/api/cars/64f30c80d130fed8a293ad9c Bad Request
+2023-09-03 09:20:32.290Z 400 GET http://localhost:8181/api/cars/64f18834311df53c1a3b188b Bad Request
