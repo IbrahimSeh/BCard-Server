@@ -5,3 +5,5 @@
 2023-09-03 05:52:52.105Z 400 GET http://localhost:8181/api/cars/undefined Bad Request
 2023-09-03 05:54:21.587Z 400 GET http://localhost:8181/api/cars/undefined Bad Request
 2023-09-03 06:06:01.899Z 400 GET http://localhost:8181/api/cars/undefined Bad Request
+2023-09-03 06:27:47.337Z 400 POST http://localhost:8181/api/cars/ Bad Request
+2023-09-03 06:57:09.430Z 400 POST http://localhost:8181/api/cars/ Bad Request
