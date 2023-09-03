@@ -9,3 +9,9 @@
 2023-09-03 06:57:09.430Z 400 POST http://localhost:8181/api/cars/ Bad Request
 2023-09-03 09:19:40.091Z 400 GET http://localhost:8181/api/cars/64f30c80d130fed8a293ad9c Bad Request
 2023-09-03 09:20:32.290Z 400 GET http://localhost:8181/api/cars/64f18834311df53c1a3b188b Bad Request
+2023-09-03 10:40:23.369Z 400 GET http://localhost:8181/api/cars/64f32a50d130fed8a293aed3 Bad Request
+2023-09-03 10:41:03.796Z 400 GET http://localhost:8181/api/cars/64f344f38dffe469183f9605 Bad Request
+2023-09-03 10:41:20.665Z 400 GET http://localhost:8181/api/cars/64f30c80d130fed8a293ad9c Bad Request
+2023-09-03 10:41:49.044Z 400 GET http://localhost:8181/api/cars/64f32a50d130fed8a293aed3 Bad Request
+2023-09-03 10:42:32.463Z 400 GET http://localhost:8181/api/cars/64f344f38dffe469183f9605 Bad Request
+2023-09-03 10:42:43.387Z 400 GET http://localhost:8181/api/cars/64f30c80d130fed8a293ad9c Bad Request
