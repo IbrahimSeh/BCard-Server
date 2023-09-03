@@ -31,3 +31,4 @@
 2023-09-03 11:03:18.587Z 400 GET http://localhost:8181/api/VAR/false Bad Request
 2023-09-03 11:08:37.777Z 400 GET http://localhost:8181/api/cars/64f344f38dffe469183f9605 Bad Request
 2023-09-03 11:09:00.784Z 400 GET http://localhost:8181/api/cars/64f32a50d130fed8a293aed3 Bad Request
+2023-09-03 14:22:17.586Z 400 POST http://localhost:8181/api/users/login Bad Request
