@@ -7,10 +7,10 @@ const createCarSchema = Joi.object({
     subType: Joi.string().max(256).allow(""),
   }),
   yearOfProduction: Joi.number().min(2).max(3000).required(),
-  previousOwners: Joi.number().max(300).required(),
-  kilometers: Joi.number().max(2000000).allow(""),
+  previousOwners: Joi.number().min(0).max(300).required(),
+  kilometers: Joi.number().min(0).max(2000000).required(),
   engine: Joi.object().keys({
-    engineType: Joi.string().max(256).allow(""),
+    engineType: Joi.string().max(256).required(),
     fuelType: Joi.string().required(),
   }),
   communications: Joi.object().keys({

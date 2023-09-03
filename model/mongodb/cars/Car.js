@@ -5,7 +5,7 @@ const ManufacturerData = require("./ManufacturerData");
 const Communications = require("./Communications");
 const Engine = require("./Engine");
 const {
-  DEFAULT_NUMBER_SCHEMA, DEFAULT_NUMBER_SCHEMA_REQUIRED
+  DEFAULT_NUMBER_SCHEMA_REQUIRED,
 } = require("./helpers/mongooseValidation");
 
 const carSchema = new mongoose.Schema({
@@ -14,7 +14,7 @@ const carSchema = new mongoose.Schema({
   engine: Engine,
   yearOfProduction: { ...DEFAULT_NUMBER_SCHEMA_REQUIRED },
   previousOwners: { ...DEFAULT_NUMBER_SCHEMA_REQUIRED },
-  kilometers: { ...DEFAULT_NUMBER_SCHEMA },
+  kilometers: { ...DEFAULT_NUMBER_SCHEMA_REQUIRED },
   image: Image,
   address: Address,
   bizNumber: {

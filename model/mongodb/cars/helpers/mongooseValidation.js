@@ -18,8 +18,21 @@ const DEFAULT_STRING_SCHEMA_REQUIRED = {
   required: true,
 };
 
+const DEFAULT_NUMBER_SCHEMA = {
+  type: Number,
+  maxLength: 2000000,
+  trim: true,
+}
+
+const DEFAULT_NUMBER_SCHEMA_REQUIRED = {
+  ...DEFAULT_NUMBER_SCHEMA,
+  minLength: 0,
+  required: true,
+}
+
 module.exports = {
   URL,
   DEFAULT_STRING_SCHEMA,
   DEFAULT_STRING_SCHEMA_REQUIRED,
+  DEFAULT_NUMBER_SCHEMA_REQUIRED,
 };
