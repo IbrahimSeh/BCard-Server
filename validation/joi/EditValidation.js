@@ -15,14 +15,7 @@ const editSchema = Joi.object({
         .regex(
             new RegExp(/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/)
         )
-        .min(6).max(256).required(),
-    // password: Joi.string()
-    //     .regex(
-    //         new RegExp(
-    //             /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/
-    //         )
-    //     )
-    //     .min(6).max(1024).required(),
+        .min(6).max(256).allow(""),
     image: Joi.object().keys({
         url: Joi.string().regex(
             new RegExp(

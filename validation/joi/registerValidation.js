@@ -15,7 +15,7 @@ const registerSchema = Joi.object({
     .regex(
       new RegExp(/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/)
     )
-    .min(6).max(256).required(),
+    .min(6).max(256).allow(""),
   password: Joi.string()
     .regex(
       new RegExp(
