@@ -26,10 +26,12 @@ const getCarByBizNumber = (bizNumber) => {
 };
 
 const getSearchCars = (searchData) => {
+  console.log('manuf = ', ...searchData.manufacturerArr);
   return Car.find({
-    yearOfProduction
-      : searchData.fromYear,
-    kilometers: searchData.FromKm
+    "manufacturerData.manufacturer": searchData.manufacturerArr[0],
+    yearOfProduction: { $gte: searchData.fromYear, $lte: searchData.toYear },
+    kilometers: { $gte: searchData.FromKm, $lte: searchData.toKm },
+    previousOwners: { $gte: searchData.fromPrvOwn, $lte: searchData.toPrvOwn },
   });
 }
 
