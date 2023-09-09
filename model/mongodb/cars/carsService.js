@@ -25,6 +25,14 @@ const getCarByBizNumber = (bizNumber) => {
   return Car.findOne({ bizNumber }, { bizNumber: 1, _id: 0 });
 };
 
+const getSearchCars = (searchData) => {
+  return Car.find({
+    yearOfProduction
+      : searchData.fromYear,
+    kilometers: searchData.FromKm
+  });
+}
+
 const updateCar = (id, carToUpdate) => {
   return Car.findByIdAndUpdate(id, carToUpdate, {
     new: true,
@@ -42,6 +50,7 @@ module.exports = {
   getUserCars,
   getUserFavCars,
   getCarByBizNumber,
+  getSearchCars,
   updateCar,
   deleteCar,
 };

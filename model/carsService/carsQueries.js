@@ -37,6 +37,12 @@ const getCarByBizNumber = (bizNumber) => {
   }
 };
 
+const getSearchCars = (searchData) => {
+  if (dbOption === "mongo") {
+    return carsServiceMongo.getSearchCars(searchData);
+  }
+};
+
 const updateCar = (id, carToUpdate) => {
   if (dbOption === "mongo") {
     return carsServiceMongo.updateCar(id, carToUpdate);
@@ -62,6 +68,7 @@ module.exports = {
   getUserCars,
   getUserFavCars,
   getCarByBizNumber,
+  getSearchCars,
   updateCar,
   deleteCar,
   carToLike,
