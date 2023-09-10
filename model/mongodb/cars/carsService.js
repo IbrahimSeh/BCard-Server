@@ -39,16 +39,16 @@ const getSearchCars = (searchData) => {
     $or: [{ "manufacturerData.manufacturer": searchData.manufacturerArr[0] }, { "manufacturerData.manufacturer": searchData.manufacturerArr[1] },],
   });
 
-  let y = [];
+  let y;
   for (let index = 0; index < queryRes.length; index++) {
-    y[index] = queryRes[index].find({
+    y = queryRes[index].find({
       yearOfProduction: { $gte: searchData.fromYear, $lte: searchData.toYear },
       kilometers: { $gte: searchData.FromKm, $lte: searchData.toKm },
       previousOwners: { $gte: searchData.fromPrvOwn, $lte: searchData.toPrvOwn },
     });
   }
 
-  console.log('y = ', y);
+  //console.log('y = ', y);
   return y;
 }
 
