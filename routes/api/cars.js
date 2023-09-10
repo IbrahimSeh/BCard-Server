@@ -48,7 +48,7 @@ router.get("/get-my-fav-cars", tokenMw, async (req, res) => {
 router.get("/search", tokenMw, async (req, res) => {
     try {
         const searchCars = await carQueriesModel.getSearchCars(req.query);
-        console.log('searchCars = ', searchCars);
+        //console.log('searchCars = ', searchCars);
         return res.send(searchCars);
     } catch (err) {
         res.status(400).json(err);

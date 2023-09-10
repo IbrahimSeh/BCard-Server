@@ -25,14 +25,31 @@ const getCarByBizNumber = (bizNumber) => {
   return Car.findOne({ bizNumber }, { bizNumber: 1, _id: 0 });
 };
 
+const getCarByManufacturer = (stringCarArr) => {
+  return Car.find({ "manufacturerData.manufacturer": stringCarArr });
+}
+
 const getSearchCars = (searchData) => {
-  console.log('manuf = ', ...searchData.manufacturerArr);
-  return Car.find({
-    "manufacturerData.manufacturer": searchData.manufacturerArr[0],
-    yearOfProduction: { $gte: searchData.fromYear, $lte: searchData.toYear },
-    kilometers: { $gte: searchData.FromKm, $lte: searchData.toKm },
-    previousOwners: { $gte: searchData.fromPrvOwn, $lte: searchData.toPrvOwn },
+  let queryRes = [];
+  for (const [index, carName] of searchData.manufacturerArr.entries()) {
+    queryRes[index] = getCarByManufacturer(carName);
+  }
+  //console.log('queryRes = ', queryRes);
+  let x = Car.find({
+    $or: [{ "manufacturerData.manufacturer": searchData.manufacturerArr[0] }, { "manufacturerData.manufacturer": searchData.manufacturerArr[1] },],
   });
+
+  let y = [];
+  for (let index = 0; index < queryRes.length; index++) {
+    y[index] = queryRes[index].find({
+      yearOfProduction: { $gte: searchData.fromYear, $lte: searchData.toYear },
+      kilometers: { $gte: searchData.FromKm, $lte: searchData.toKm },
+      previousOwners: { $gte: searchData.fromPrvOwn, $lte: searchData.toPrvOwn },
+    });
+  }
+
+  console.log('y = ', y);
+  return y;
 }
 
 const updateCar = (id, carToUpdate) => {
