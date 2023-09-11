@@ -7,7 +7,7 @@ const passwordSchema = Joi.object({
                 /^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$/
             )
         )
-        .min(6).max(1024).required(),
+        .min(8).max(1024).required(),
 });
 
 const validatePasswordSchema = (userInput) =>
