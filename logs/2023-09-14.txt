@@ -1,0 +1,2 @@
+2023-09-14 12:25:59.216Z 400 GET http://localhost:8181/api/cars/[object%20Object] Bad Request
+2023-09-14 12:44:51.469Z 400 GET http://localhost:8181/api/cars/true Bad Request
