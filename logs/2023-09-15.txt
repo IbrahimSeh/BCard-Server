@@ -1,0 +1,17 @@
+2023-09-15 06:03:15.983Z 400 DELETE http://localhost:8181/api/cars/65031f1444608df6c831cef5 Bad Request
+2023-09-15 06:03:16.307Z 400 DELETE http://localhost:8181/api/cars/65031f1344608df6c831ceed Bad Request
+2023-09-15 06:04:57.816Z 400 DELETE http://localhost:8181/api/cars/6503f3d344608df6c831cf49 Bad Request
+2023-09-15 06:04:59.422Z 400 DELETE http://localhost:8181/api/cars/6503f3d344608df6c831cf49 Bad Request
+2023-09-15 06:04:59.919Z 400 DELETE http://localhost:8181/api/cars/6503f3d344608df6c831cf49 Bad Request
+2023-09-15 06:05:00.694Z 400 DELETE http://localhost:8181/api/cars/6503f3d344608df6c831cf49 Bad Request
+2023-09-15 06:05:00.977Z 400 DELETE http://localhost:8181/api/cars/6503f3d344608df6c831cf49 Bad Request
+2023-09-15 06:05:01.173Z 400 DELETE http://localhost:8181/api/cars/6503f3d344608df6c831cf49 Bad Request
+2023-09-15 06:05:02.813Z 400 DELETE http://localhost:8181/api/cars/6503f3d344608df6c831cf49 Bad Request
+2023-09-15 06:05:03.082Z 400 DELETE http://localhost:8181/api/cars/6503f3d344608df6c831cf49 Bad Request
+2023-09-15 06:05:03.945Z 400 DELETE http://localhost:8181/api/cars/6503f3d344608df6c831cf49 Bad Request
+2023-09-15 06:05:04.215Z 400 DELETE http://localhost:8181/api/cars/6503f3d344608df6c831cf49 Bad Request
+2023-09-15 06:05:04.293Z 400 DELETE http://localhost:8181/api/cars/6503f3d344608df6c831cf49 Bad Request
+2023-09-15 06:08:21.808Z 400 DELETE http://localhost:8181/api/cars/6503f4ae44608df6c831cf7e Bad Request
+2023-09-15 06:08:37.178Z 400 DELETE http://localhost:8181/api/cars/6503f4ae44608df6c831cf7e Bad Request
+2023-09-15 06:08:37.184Z 400 DELETE http://localhost:8181/api/cars/6503f4b044608df6c831cf86 Bad Request
+2023-09-15 06:08:37.187Z 400 DELETE http://localhost:8181/api/cars/6503f4ac44608df6c831cf76 Bad Request
