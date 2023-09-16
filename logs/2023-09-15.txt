@@ -16,3 +16,5 @@
 2023-09-15 06:08:37.184Z 400 DELETE http://localhost:8181/api/cars/6503f4b044608df6c831cf86 Bad Request
 2023-09-15 06:08:37.187Z 400 DELETE http://localhost:8181/api/cars/6503f4ac44608df6c831cf76 Bad Request
 2023-09-15 16:40:57.352Z 400 POST http://localhost:8181/api/VAR/ Bad Request
+2023-09-15 17:38:07.700Z 400 PATCH http://localhost:8181/api/cars/car-like/64f32a50d130fed8a293aed3 Bad Request
+2023-09-15 17:40:34.890Z 400 PATCH http://localhost:8181/api/cars/car-like/650481b644608df6c831d1b4 Bad Request
