@@ -1,0 +1,11 @@
+2023-09-17 06:34:44.461Z 400 PATCH http://localhost:8181/api/cars/car-like/65058cc8041702b164a6e951 Bad Request
+2023-09-17 06:47:34.674Z 400 PATCH http://localhost:8181/api/cars/car-like/64f32a50d130fed8a293aed3 Bad Request
+2023-09-17 07:25:54.093Z 400 PATCH http://localhost:8181/api/cars/car-like/650481b644608df6c831d1b4 Bad Request
+2023-09-17 07:26:08.890Z 400 PATCH http://localhost:8181/api/cars/car-like/64f344f38dffe469183f9605 Bad Request
+2023-09-17 07:27:19.675Z 400 PATCH http://localhost:8181/api/cars/car-like/64f344f38dffe469183f9605 Bad Request
+2023-09-17 07:31:44.288Z 400 PATCH http://localhost:8181/api/cars/car-like/650481b644608df6c831d1b4 Bad Request
+2023-09-17 07:31:48.094Z 400 PATCH http://localhost:8181/api/cars/car-like/64f344f38dffe469183f9605 Bad Request
+2023-09-17 07:39:18.730Z 400 PATCH http://localhost:8181/api/cars/car-like/64f344f38dffe469183f9605 Bad Request
+2023-09-17 07:44:06.940Z 400 PATCH http://localhost:8181/api/cars/car-like/64f344f38dffe469183f9605 Bad Request
+2023-09-17 07:44:35.850Z 400 PATCH http://localhost:8181/api/cars/car-like/64f344f38dffe469183f9605 Bad Request
+2023-09-17 07:44:47.792Z 400 PATCH http://localhost:8181/api/cars/car-like/64f344f38dffe469183f9605 Bad Request
