@@ -574,7 +574,7 @@ request:
 #### To update car like
 
 ```http
-	PATCH /api/cars/:id
+	PATCH /api/cars/car-like/:id
 ```
 
 - must provide token
