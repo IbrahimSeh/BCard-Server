@@ -1,6 +1,6 @@
 {
   "dbConfig": {
-    "url": "mongodb+srv://ibrahimseh:4BKL6O2OP7peOtbf@cluster0.4nojwfy.mongodb.net/IbrahimsehDB"
+    "url": "mongodb+srv://ibrahimseh:4BKL6O2OP7peOtbf@cluster0.4nojwfy.mongodb.net/AutoAlliance"
   },
   "jwt": "eqbyuybbwefuefhh",
   "file": "pro"
