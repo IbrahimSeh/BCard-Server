@@ -283,107 +283,143 @@ request:
 
 You will need to provide a token to get an answer from this api
 
-#### to change isSubscription status
-
-```http
-  PATCH /api/users/:id
-```
-
-- must provide token
-  \*\* must be registered user
-
-You will need to provide a token to get an answer from this api
-
-#### to delete a user
-
-```http
-  DELETE /api/users/:id
-```
-
-- must provide token
-  \*\* must be registered user or admin
-
-You will need to provide a token to get an answer from this api
-
 ## Car Routes
 
-#### To receive all business cards
+#### To receive all cars that admin create
 
 ```http
-  GET /api/cards
+  GET /api/cars
 ```
 
-#### To receive all business cards of the registered user
+#### To get fav cars of a specific user
 
 ```http
-  GET /api/cards/my-cards
-```
-
-- must provide token
-- must be the registered user
-  You will need to provide a token to get an answer from this api
-
-#### To get a business card of a specific business
-
-```http
-  GET /api/cards/:id
-```
-
-#### To create a new business card
-
-```http
-  POST /api/cards
+  GET /api/cars/get-my-fav-cars
 ```
 
 request:
 
 - must provide token
-  \*\* must registered as business user
 
-* title:
+#### To get search car of a specific information
+
+```http
+  GET /api/cars/search
+```
+
+-manufacturerArr:
+-- string
+-- array
+-- required
+
+-typeArr:
+-- string
+-- array
+-- required
+
+-fromYear:
+-- number
+-- required
+-- min 1900
+-- max 2999
+
+-toYear:
+-- number
+-- required
+-- min 1900
+-- max 2999
+
+-FromKm:
+-- number
+-- required
+-- min 0
+-- max 2000000
+
+-toKm:
+-- number
+-- required
+-- min 0
+-- max 2000000
+
+-fromPrvOwn:
+-- number
+-- required
+-- min 1900
+-- max 2999
+
+-toPrvOwn:
+-- number
+-- required
+-- min 1900
+-- max 2999
+
+#### To create a new car
+
+```http
+  POST /api/cars
+```
+
+request:
+
+- must provide token
+  \*\* must registered as admin user
+
+-manufacturerData:
+-- object :
+
+- manufacturer :
   -- string
   -- required
   -- min 2
   -- max 256
-* subTitle:
+- type :
   -- string
   -- required
   -- min 2
   -- max 256
-* description:
+- subType :
   -- string
-  -- required
   -- min 2
-  -- max 1024
-* phone:
+  -- max 256
+
+-communications:
+-- object :
+
+- phone:
   -- string
   -- required
   -- min 9
   -- max 14
-* email:
+- email:
   -- string
-  -- required
   -- must be email
   -- min 6
   -- max 256
-* web:
-  // link to website of the buissness
+
+-engine:
+-- object :
+
+- engineType:
   -- string
-  -- min 5
-  -- max 255
+  -- required
+  -- min 1
+  -- max 256
+- fuelType:
+  -- string
+  -- min 1
+  -- max 256
 
-* image:
-  -- object :
+-image:
+-- object :
 
-  - url:
-    -- string
-  - alt:
-    -- string
-    -- min 2
-    -- max 256
-    -- required
+- url:
+  -- string
+  -- array
+- alt:
+  -- string
+  -- array
 
-* address:
+- address:
   -- object :
 
   - state:
@@ -405,20 +441,31 @@ request:
     -- required
     -- min 2
     -- max 256
-  - houseNumber:
-    -- string
-    -- required
-    -- min 1
-    -- max 256
-  - zip:
+
+  - yearOfProduction :
     -- number
+    -- required
+    -- min 1900
+    -- max 2999
+
+    - previousOwners :
+      -- number
+      -- required
+      -- min 0
+      -- max 300
+
+    - kilometers :
+      -- number
+      -- required
+      -- min 0
+      -- max 2000000
 
   You will need to provide a token to get an answer from this api
 
-#### To update a business card
+#### To update a car
 
 ```http
-  PUT /api/cards/:id
+  PUT /api/cars/:id
 ```
 
 request:
@@ -426,50 +473,62 @@ request:
 - must provide token
   \*\* must registered as business user who create the card
 
-* title:
+\*-manufacturerData:
+-- object :
+
+- manufacturer :
   -- string
   -- required
   -- min 2
   -- max 256
-* subTitle:
+- type :
   -- string
   -- required
   -- min 2
   -- max 256
-* description:
+- subType :
   -- string
-  -- required
   -- min 2
-  -- max 1024
-* phone:
+  -- max 256
+
+-communications:
+-- object :
+
+- phone:
   -- string
   -- required
   -- min 9
   -- max 14
-* email:
+- email:
   -- string
-  -- required
   -- must be email
   -- min 6
   -- max 256
-* web:
-  // link to website of the buissness
+
+-engine:
+-- object :
+
+- engineType:
   -- string
-  -- min 5
-  -- max 255
+  -- required
+  -- min 1
+  -- max 256
+- fuelType:
+  -- string
+  -- min 1
+  -- max 256
 
-* image:
-  -- object :
+-image:
+-- object :
 
-  - url:
-    -- string
-  - alt:
-    -- string
-    -- min 2
-    -- max 256
-    -- required
+- url:
+  -- string
+  -- array
+- alt:
+  -- string
+  -- array
 
-* address:
+- address:
   -- object :
 
   - state:
@@ -491,114 +550,148 @@ request:
     -- required
     -- min 2
     -- max 256
-  - houseNumber:
-    -- string
-    -- required
-    -- min 1
-    -- max 256
-  - zip:
+
+  - yearOfProduction :
     -- number
+    -- required
+    -- min 1900
+    -- max 2999
+
+    - previousOwners :
+      -- number
+      -- required
+      -- min 0
+      -- max 300
+
+    - kilometers :
+      -- number
+      -- required
+      -- min 0
+      -- max 2000000
 
     You will need to provide a token to get an answer from this api
 
-#### To update card like
+#### To update car like
 
 ```http
-	PATCH /api/cards/:id
+	PATCH /api/cars/:id
 ```
 
 - must provide token
 - must be registered user
 
-#### To delete a business card
+#### To delete a car
 
 ```http
-  DELETE /api/cards/:id
+  DELETE /api/cars/:id
 ```
 
 - must provide token
-  \*\* must registered as business user who created the card or admin
+  \*\* must be admin
   You will need to provide a token to get an answer from this api
 
 ## VARs Routes
 
-#### To receive all business cards
+// VAR = Vehicle Advertising Requests
+
+#### To receive all VAR
 
 ```http
-  GET /api/cards
+  GET /api/VAR
 ```
 
-#### To receive all business cards of the registered user
+#### To receive all cars of the registered user from Vehicle Advertising Requests
 
 ```http
-  GET /api/cards/my-cards
+  GET /api/VAR/get-my-fav-vars
 ```
 
 - must provide token
 - must be the registered user
   You will need to provide a token to get an answer from this api
 
-#### To get a business card of a specific business
+  #### To receive all cars of the registered user from Vehicle Advertising Requests with flag false or true
+
+with flag false - return all request that wait for answer from admin
+with flag true - return all cars that has been accepted fromm admin to publish
 
 ```http
-  GET /api/cards/:id
+  GET /api/VAR/From-Outside/:flag
 ```
 
-#### To create a new business card
+#### To get a specific VAR
 
 ```http
-  POST /api/cards
+  GET /api/VAR/:id
+```
+
+#### To create a new VAR
+
+```http
+  POST /api/VAR
 ```
 
 request:
 
 - must provide token
-  \*\* must registered as business user
+  \*\* must registered as isSubscription user
 
-* title:
+-manufacturerData:
+-- object :
+
+- manufacturer :
   -- string
   -- required
   -- min 2
   -- max 256
-* subTitle:
+- type :
   -- string
   -- required
   -- min 2
   -- max 256
-* description:
+- subType :
   -- string
-  -- required
   -- min 2
-  -- max 1024
-* phone:
+  -- max 256
+
+-communications:
+-- object :
+
+- phone:
   -- string
   -- required
   -- min 9
   -- max 14
-* email:
+- email:
   -- string
-  -- required
   -- must be email
   -- min 6
   -- max 256
-* web:
-  // link to website of the buissness
+
+-engine:
+-- object :
+
+- engineType:
   -- string
-  -- min 5
-  -- max 255
+  -- required
+  -- min 1
+  -- max 256
+- fuelType:
+  -- string
+  -- min 1
+  -- max 256
 
-* image:
-  -- object :
+-image:
+-- object :
 
-  - url:
-    -- string
-  - alt:
-    -- string
-    -- min 2
-    -- max 256
-    -- required
+- url:
+  -- string
+  -- array
+- alt:
+  -- string
+  -- array
 
-* address:
+- address:
   -- object :
 
   - state:
@@ -620,120 +713,52 @@ request:
     -- required
     -- min 2
     -- max 256
-  - houseNumber:
-    -- string
-    -- required
-    -- min 1
-    -- max 256
-  - zip:
+
+  - yearOfProduction :
     -- number
+    -- required
+    -- min 1900
+    -- max 2999
+
+    - previousOwners :
+      -- number
+      -- required
+      -- min 0
+      -- max 300
+
+    - kilometers :
+      -- number
+      -- required
+      -- min 0
+      -- max 2000000
 
   You will need to provide a token to get an answer from this api
 
-#### To update a business card
+#### To update VAR publish
 
 ```http
-  PUT /api/cards/:id
-```
-
-request:
-
-- must provide token
-  \*\* must registered as business user who create the card
-
-* title:
-  -- string
-  -- required
-  -- min 2
-  -- max 256
-* subTitle:
-  -- string
-  -- required
-  -- min 2
-  -- max 256
-* description:
-  -- string
-  -- required
-  -- min 2
-  -- max 1024
-* phone:
-  -- string
-  -- required
-  -- min 9
-  -- max 14
-* email:
-  -- string
-  -- required
-  -- must be email
-  -- min 6
-  -- max 256
-* web:
-  // link to website of the buissness
-  -- string
-  -- min 5
-  -- max 255
-
-* image:
-  -- object :
-
-  - url:
-    -- string
-  - alt:
-    -- string
-    -- min 2
-    -- max 256
-    -- required
-
-* address:
-  -- object :
-
-  - state:
-    -- string
-    -- min 2
-    -- max 256
-  - country:
-    -- string
-    -- required
-    -- min 2
-    -- max 256
-  - city:
-    -- string
-    -- required
-    -- min 2
-    -- max 256
-  - street:
-    -- string
-    -- required
-    -- min 2
-    -- max 256
-  - houseNumber:
-    -- string
-    -- required
-    -- min 1
-    -- max 256
-  - zip:
-    -- number
-
-    You will need to provide a token to get an answer from this api
-
-#### To update card like
-
-```http
-	PATCH /api/cards/:id
+	PATCH /api/VAR/:id
 ```
 
 - must provide token
-- must be registered user
+- must be admin
 
-#### To delete a business card
+#### To delete a VAR
 
 ```http
-  DELETE /api/cards/:id
+  DELETE /api/VAR/:id
 ```
 
 - must provide token
-  \*\* must registered as business user who created the card or admin
-  You will need to provide a token to get an answer from this api
+- must be admin
+
+#### To PATCH like of VAR
+
+```http
+	PATCH /api/VAR/VAR-like/:id
+```
+
+- must provide token
 
 ## Admin Routes
 

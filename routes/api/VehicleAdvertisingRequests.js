@@ -11,8 +11,9 @@ const isAdminMw = require("../../middleware/isAdminMW");
 const { isValidObjectId } = require("../../utils/objectID/verifyObjectID");
 const CustomError = require("../../utils/CustomError");
 
+// VAR = Vehicle Advertising Requests
 
-//http://localhost:8181/api/VAR
+//http://localhost:8181/api/VAR 
 router.get("/", async (req, res) => {
     try {
         const allVARs = await varQueriesModel.getAllVARs();
@@ -22,7 +23,7 @@ router.get("/", async (req, res) => {
     }
 });
 
-//http://localhost:8181/api/VAR/get-my-fav-vars
+//http://localhost:8181/api/VAR/get-my-fav-vars v
 router.get("/get-my-fav-vars", tokenMw, async (req, res) => {
     try {
         const userVars = await varQueriesModel.getUserFavVars(req.userData._id);
@@ -32,7 +33,7 @@ router.get("/get-my-fav-vars", tokenMw, async (req, res) => {
     }
 });
 
-//http://localhost:8181/api/VAR/
+//http://localhost:8181/api/VAR/From-Outside/:flag v
 router.get("/From-Outside/:flag", async (req, res) => {
     try {
         const allVARs = await varQueriesModel.getVARByFlag(req.params.flag);
@@ -42,7 +43,7 @@ router.get("/From-Outside/:flag", async (req, res) => {
     }
 });
 
-//http://localhost:8181/api/VAR/:id
+//http://localhost:8181/api/VAR/:id v
 router.get("/:id", async (req, res) => {
     try {
         const validateID = isValidObjectId(req.params.id);
@@ -55,7 +56,7 @@ router.get("/:id", async (req, res) => {
     }
 });
 
-//http://localhost:8181/api/VAR
+//http://localhost:8181/api/VAR v
 router.post("/", tokenMw, isSubscriptionMw, async (req, res) => {
     try {
         await carsValidationService.createCarValidation(req.body);
@@ -70,7 +71,7 @@ router.post("/", tokenMw, isSubscriptionMw, async (req, res) => {
     }
 });
 
-//http://localhost:8181/api/VAR/:id
+//http://localhost:8181/api/VAR/:id v
 router.patch("/:id", tokenMw, isAdminMw, async (req, res) => {
     try {
         const validateID = isValidObjectId(req.params.id);
@@ -85,10 +86,9 @@ router.patch("/:id", tokenMw, isAdminMw, async (req, res) => {
     }
 });
 
-//http://localhost:8181/api/VAR/:id
+//http://localhost:8181/api/VAR/:id v
 router.delete("/:id", tokenMw, isAdminMw, async (req, res) => {
     try {
-        //joi the id car in isAdminOrisSubscriptionOwnerMw
         const deletedCar = await varQueriesModel.deleteVAR(req.params.id);
         if (!deletedCar) throw new CustomError("Sorry ,car not found in database !");
         res.json(deletedCar);
@@ -97,6 +97,7 @@ router.delete("/:id", tokenMw, isAdminMw, async (req, res) => {
     }
 });
 
+//http://localhost:8181/api/VAR/VAR-like/:id v
 router.patch("/VAR-like/:id", tokenMw, async (req, res) => {
     try {
         const user = req.userData;

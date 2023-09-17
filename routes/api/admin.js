@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const userQueriesModel = require("../../model/usersService/usersQueries");
 const carQueriesModel = require("../../model/carsService/carsQueries");
 const CustomError = require("../../utils/CustomError");
 const isAdminMw = require("../../middleware/isAdminMW");

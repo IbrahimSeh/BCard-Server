@@ -1,5 +1,3 @@
-const CustomError = require("../utils/CustomError");
-
 const registeredUserMw = async (req, res, next) => {
     try {
         console.log('req.userData._id = ', req.userData._id);

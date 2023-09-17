@@ -9,7 +9,6 @@ const {
 } = require("../../validation/userValidationService");
 const normalizeUser = require("../../model/usersService/helpers/normalizationUserService");
 const userQueriesModel = require("../../model/usersService/usersQueries");
-const carQueriesModel = require("../../model/carsService/carsQueries");
 const { generateToken } = require("../../utils/token/tokenService");
 const CustomError = require("../../utils/CustomError");
 const isAdminMw = require("../../middleware/isAdminMW");
@@ -18,7 +17,7 @@ const registeredUserMw = require("../../middleware/registeredUserMw");
 const isAdminOrRegisteredMw = require("../../middleware/isAdminOrRegisteredMw");
 const { isValidObjectId } = require("../../utils/objectID/verifyObjectID");
 
-//http://localhost:8181/api/users
+//http://localhost:8181/api/users v
 router.post("/", async (req, res) => {
     try {
         /*
@@ -46,7 +45,7 @@ router.post("/", async (req, res) => {
 });
 
 
-//http://localhost:8181/api/users/login
+//http://localhost:8181/api/users/login v
 router.post("/login", async (req, res) => {
     try {
         /**
@@ -86,7 +85,7 @@ router.get("/", tokenMw, isAdminMw, async (req, res) => {
     }
 });
 
-//http://localhost:8181/api/users/:id
+//http://localhost:8181/api/users/:id v
 router.get("/:id", tokenMw, isAdminOrRegisteredMw(true, true), async (req, res) => {
     try {
         const validateID = isValidObjectId(req.params.id);
@@ -99,7 +98,7 @@ router.get("/:id", tokenMw, isAdminOrRegisteredMw(true, true), async (req, res) 
     }
 });
 
-//http://localhost:8181/api/users/:id
+//http://localhost:8181/api/users/:id v
 router.put("/:id", tokenMw, registeredUserMw, async (req, res) => {
     try {
         const validateID = isValidObjectId(req.params.id);
@@ -123,7 +122,7 @@ router.put("/:id", tokenMw, registeredUserMw, async (req, res) => {
     }
 });
 
-//http://localhost:8181/api/users/setpassword/:id
+//http://localhost:8181/api/users/setpassword/:id v
 router.put("/setpassword/:id", tokenMw, registeredUserMw, async (req, res) => {
     try {
         const validateID = isValidObjectId(req.params.id);
@@ -143,43 +142,6 @@ router.put("/setpassword/:id", tokenMw, registeredUserMw, async (req, res) => {
         if (err.hasOwnProperty('keyValue')) {
             return res.status(400).send(err.keyValue.email + " is already exist in database");
         }
-        res.status(400).json(err);
-    }
-});
-
-
-//http://localhost:8181/api/users/:id
-router.patch("/:id", tokenMw, registeredUserMw, async (req, res) => {
-    try {
-        const validateID = isValidObjectId(req.params.id);
-        if (!validateID) throw new CustomError("object-id is not a valid MongodbID");
-        const userFromDB = await userQueriesModel.getUserById(req.params.id);
-        if (!userFromDB) throw new CustomError("Sorry ,user not found in database !");
-        userFromDB.isSubscription = !userFromDB.isSubscription;
-        await userQueriesModel.findByIdAndUpdate(req.params.id, userFromDB);
-        res.json(userFromDB);
-    } catch (err) {
-        res.status(400).json(err);
-    }
-});
-
-//http://localhost:8181/api/users/:id
-router.delete("/:id", tokenMw, isAdminOrRegisteredMw(true, true), async (req, res) => {
-    try {
-        const validateID = isValidObjectId(req.params.id);
-        if (!validateID) throw new CustomError("object-id is not a valid MongodbID");
-        //delete cars that related to user
-        const userCars = await carQueriesModel.getUserCars(req.params.id);
-        userCars.forEach(async element => {
-            await carQueriesModel.deleteCar(element._id);
-        });
-        const userFromDB = await userQueriesModel.deleteUser(req.params.id);
-        if (userFromDB) {
-            res.json(userFromDB);
-        } else {
-            res.json({ msg: "could not find the user" });
-        }
-    } catch (err) {
         res.status(400).json(err);
     }
 });

@@ -1,3 +1,0 @@
-2023-08-18 06:48:44.344Z 400 POST http://localhost:8181/api/cars/ Bad Request
-2023-08-18 11:45:49.970Z 413 POST http://localhost:8181/api/cars/ Payload Too Large
-2023-08-18 13:18:26.067Z 400 POST http://localhost:8181/api/cars/ Bad Request

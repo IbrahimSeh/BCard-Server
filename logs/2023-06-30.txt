@@ -1,7 +1,0 @@
-2023-06-30 14:47:29.390Z 400 PUT http://localhost:8181/api/admin/649e98bbd2a363ee586b104d
-2023-06-30 14:47:39.181Z 400 POST http://localhost:8181/api/cards
-2023-06-30 14:47:42.893Z 400 POST http://localhost:8181/api/cards
-2023-06-30 14:47:49.413Z 400 PUT http://localhost:8181/api/admin/649e98bbd2a363ee586b104d
-2023-06-30 15:02:27.263Z 400 PUT http://localhost:8181/api/admin/649e98bbd2a363ee586b104d
-2023-06-30 15:04:11.234Z 400 PUT http://localhost:8181/api/admin/649e98bbd2a363ee586b104d
-2023-06-30 15:08:01.962Z 400 PUT http://localhost:8181/api/admin/649e98bbd2a363ee586b104d Bad Request

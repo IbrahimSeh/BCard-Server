@@ -6,7 +6,7 @@ const createCarSchema = Joi.object({
     type: Joi.string().min(2).max(256).required(),
     subType: Joi.string().max(256).allow(""),
   }),
-  yearOfProduction: Joi.number().min(2).max(3000).required(),
+  yearOfProduction: Joi.number().min(1900).max(2999).required(),
   previousOwners: Joi.number().min(0).max(300).required(),
   kilometers: Joi.number().min(0).max(2000000).required(),
   engine: Joi.object().keys({
@@ -14,10 +14,10 @@ const createCarSchema = Joi.object({
     fuelType: Joi.string().required(),
   }),
   communications: Joi.object().keys({
-    phone: Joi.string()
+    phone: Joi.string().min(9).max(14)
       .regex(new RegExp(/0[0-9]{1,2}\-?\s?[0-9]{3}\s?[0-9]{4}/))
       .required(),
-    email: Joi.string()
+    email: Joi.string().min(6).max(256)
       .regex(
         new RegExp(/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/)
       ).allow(""),

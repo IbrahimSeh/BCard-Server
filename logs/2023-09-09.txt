@@ -1,7 +1,0 @@
-2023-09-09 06:26:40.116Z 400 PATCH http://localhost:8181/api/cars/car-like/64f32a50d130fed8a293aed3 Bad Request
-2023-09-09 07:21:38.351Z 400 GET http://localhost:8181/api/cars/search/[object%20Object] Bad Request
-2023-09-09 08:00:19.816Z 400 GET http://localhost:8181/api/cars/search/ Bad Request
-2023-09-09 08:56:34.403Z 400 GET http://localhost:8181/api/VAR/64f1cdee311df53c1a3b19f6 Bad Request
-2023-09-09 16:43:51.685Z 400 GET http://localhost:8181/api/cars/search/?manufacturerArr[]=SKODA&fromYear=1900&toYear=2099&FromKm=0&toKm=0&fromPrvOwn=0&toPrvOwn=0 Bad Request
-2023-09-09 16:44:14.061Z 400 GET http://localhost:8181/api/cars/search/?manufacturerArr[]=SKODA&fromYear=1900&toYear=2099&FromKm=0&toKm=0&fromPrvOwn=0&toPrvOwn=0 Bad Request
-2023-09-09 17:40:54.252Z 400 GET http://localhost:8181/api/VAR/64fca8b3656c4dff97f62c57 Bad Request

@@ -1,17 +1,15 @@
 const express = require("express");
 const router = express.Router();
-const chalk = require("chalk");
 const jwt = require("jsonwebtoken");
 const carQueriesModel = require("../../model/carsService/carsQueries");
 const carsValidationService = require("../../validation/carsValidationService");
 const CustomError = require("../../utils/CustomError");
 const normalizeCar = require("../../model/carsService/helpers/normalizationCarService");
 const tokenMw = require("../../middleware/verifyTokenMW");
-const isAdminOrisSubscriptionOwnerMw = require("../../middleware/isAdminOrisSubscriptionOwnerMw");
 const isAdminMW = require("../../middleware/isAdminMW");
 const { isValidObjectId } = require("../../utils/objectID/verifyObjectID");
 
-//http://localhost:8181/api/cars
+//http://localhost:8181/api/cars v
 router.get("/", async (req, res) => {
     try {
         const allCars = await carQueriesModel.getAllCars();
@@ -21,20 +19,7 @@ router.get("/", async (req, res) => {
     }
 });
 
-//http://localhost:8181/api/cars/my-cars
-router.get("/my-cars", tokenMw, async (req, res) => {
-    try {
-        /*
-        I guess you don't need to check if the user is a subscription because it is possible that he was a subscription and became normal,by (PATCH) http://localhost:8181/api/users/:id
-        */
-        const userCars = await carQueriesModel.getUserCars(req.userData._id);
-        return res.send(userCars);
-    } catch (err) {
-        res.status(400).json(err);
-    }
-});
-
-//http://localhost:8181/api/cars/get-my-fav-cars
+//http://localhost:8181/api/cars/get-my-fav-cars v
 router.get("/get-my-fav-cars", tokenMw, async (req, res) => {
     try {
         const userCars = await carQueriesModel.getUserFavCars(req.userData._id);
@@ -44,7 +29,7 @@ router.get("/get-my-fav-cars", tokenMw, async (req, res) => {
     }
 });
 
-//http://localhost:8181/api/cars/search/:data
+//http://localhost:8181/api/cars/search v
 router.get("/search", tokenMw, async (req, res) => {
     try {
         const searchCars = await carQueriesModel.getSearchCars(req.query);
@@ -55,7 +40,7 @@ router.get("/search", tokenMw, async (req, res) => {
     }
 });
 
-//http://localhost:8181/api/cars/:id
+//http://localhost:8181/api/cars/:id v
 router.get("/:id", async (req, res) => {
     try {
         const validateID = isValidObjectId(req.params.id);
@@ -68,7 +53,7 @@ router.get("/:id", async (req, res) => {
     }
 });
 
-//http://localhost:8181/api/cars
+//http://localhost:8181/api/cars v
 router.post("/", tokenMw, isAdminMW, async (req, res) => {
     try {
         await carsValidationService.createCarValidation(req.body);
@@ -83,10 +68,9 @@ router.post("/", tokenMw, isAdminMW, async (req, res) => {
     }
 });
 
-//http://localhost:8181/api/cars/:id
+//http://localhost:8181/api/cars/:id v
 router.put("/:id", tokenMw, isAdminMW, async (req, res) => {
     try {
-        //joi the id car in isSubscriptionOwnerMW
         await carsValidationService.createCarValidation(req.body);
         let normalCar = await normalizeCar(req.body, jwt.decode(req.headers["x-auth-token"])._id);
         const carFromDB = await carQueriesModel.getCarById(req.params.id);
@@ -104,7 +88,7 @@ router.put("/:id", tokenMw, isAdminMW, async (req, res) => {
     }
 });
 
-//http://localhost:8181/api/cars/:id
+//http://localhost:8181/api/cars/:id v
 router.patch("/:id", tokenMw, async (req, res) => {
     try {
         const validateID = isValidObjectId(req.params.id);
@@ -134,10 +118,9 @@ router.patch("/:id", tokenMw, async (req, res) => {
     }
 });
 
-//http://localhost:8181/api/cars/:id
-router.delete("/:id", tokenMw, isAdminOrisSubscriptionOwnerMw(false, true, true), async (req, res) => {
+//http://localhost:8181/api/cars/:id v
+router.delete("/:id", tokenMw, isAdminMW, async (req, res) => {
     try {
-        //joi the id car in isAdminOrisSubscriptionOwnerMw
         const deletedCar = await carQueriesModel.deleteCar(req.params.id);
         if (!deletedCar) throw new CustomError("Sorry ,car not found in database !");
         res.json(deletedCar);
@@ -146,22 +129,4 @@ router.delete("/:id", tokenMw, isAdminOrisSubscriptionOwnerMw(false, true, true)
     }
 });
 
-router.patch("/car-like/:id", tokenMw, async (req, res) => {
-    try {
-        const user = req.userData;
-        let car = await carQueriesModel.getCarById(req.params.id);
-        const carLikes = car.likes.find((id) => id === user._id);
-        if (!carLikes) {
-            car.likes.push(user._id);
-            car = await car.save();
-            return res.send(car);
-        }
-        const carFiltered = car.likes.filter((id) => id !== user._id);
-        car.likes = carFiltered;
-        car = await car.save();
-        return res.send(car);
-    } catch (err) {
-        res.status(400).json(err);
-    }
-});
 module.exports = router;
