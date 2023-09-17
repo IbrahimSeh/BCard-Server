@@ -7,7 +7,7 @@ const carsValidationService = require("../../validation/carsValidationService");
 const CustomError = require("../../utils/CustomError");
 const normalizeCar = require("../../model/carsService/helpers/normalizationCarService");
 const tokenMw = require("../../middleware/verifyTokenMW");
-const isAdminOrBizOwnerMW = require("../../middleware/isAdminOrBizOwnerMW");
+const isAdminOrisSubscriptionOwnerMw = require("../../middleware/isAdminOrisSubscriptionOwnerMw");
 const isAdminMW = require("../../middleware/isAdminMW");
 const { isValidObjectId } = require("../../utils/objectID/verifyObjectID");
 
@@ -86,7 +86,7 @@ router.post("/", tokenMw, isAdminMW, async (req, res) => {
 //http://localhost:8181/api/cars/:id
 router.put("/:id", tokenMw, isAdminMW, async (req, res) => {
     try {
-        //joi the id car in isBusinessOwnerMW
+        //joi the id car in isSubscriptionOwnerMW
         await carsValidationService.createCarValidation(req.body);
         let normalCar = await normalizeCar(req.body, jwt.decode(req.headers["x-auth-token"])._id);
         const carFromDB = await carQueriesModel.getCarById(req.params.id);
@@ -135,9 +135,9 @@ router.patch("/:id", tokenMw, async (req, res) => {
 });
 
 //http://localhost:8181/api/cars/:id
-router.delete("/:id", tokenMw, isAdminOrBizOwnerMW(false, true, true), async (req, res) => {
+router.delete("/:id", tokenMw, isAdminOrisSubscriptionOwnerMw(false, true, true), async (req, res) => {
     try {
-        //joi the id car in isAdminOrBizOwnerMW
+        //joi the id car in isAdminOrisSubscriptionOwnerMw
         const deletedCar = await carQueriesModel.deleteCar(req.params.id);
         if (!deletedCar) throw new CustomError("Sorry ,car not found in database !");
         res.json(deletedCar);

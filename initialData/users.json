@@ -47,6 +47,6 @@
       "street": "nof ha hof",
       "houseNumber": 255
     },
-    "isBusiness": true
+    "isSubscription": true
   }
 ]

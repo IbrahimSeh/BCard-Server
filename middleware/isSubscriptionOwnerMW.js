@@ -2,7 +2,7 @@ const { getCarById } = require("../model/carsService/carsQueries");
 const { isValidObjectId } = require("../utils/objectID/verifyObjectID");
 const CustomError = require("../utils/CustomError");
 
-const isBusinessOwnerMW = async (req, res, next) => {
+const isSubscriptionOwnerMW = async (req, res, next) => {
     try {
         const validateID = isValidObjectId(req.params.id);
         if (!validateID) throw new CustomError("object-id is not a valid MongodbID");
@@ -20,4 +20,4 @@ const isBusinessOwnerMW = async (req, res, next) => {
     }
 };
 
-module.exports = isBusinessOwnerMW;
+module.exports = isSubscriptionOwnerMW;

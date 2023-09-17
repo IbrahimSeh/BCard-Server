@@ -7,7 +7,7 @@ const normalizeCar = require("../../model/carsService/helpers/normalizationCarSe
 const isSubscriptionMw = require("../../middleware/isSubscriptionMW");
 const tokenMw = require("../../middleware/verifyTokenMW");
 const registeredUserMw = require("../../middleware/registeredUserMw");
-const isAdminMw = require("../../middleware/isAdminMw");
+const isAdminMw = require("../../middleware/isAdminMW");
 const { isValidObjectId } = require("../../utils/objectID/verifyObjectID");
 const CustomError = require("../../utils/CustomError");
 
@@ -88,7 +88,7 @@ router.patch("/:id", tokenMw, isAdminMw, async (req, res) => {
 //http://localhost:8181/api/VAR/:id
 router.delete("/:id", tokenMw, isAdminMw, async (req, res) => {
     try {
-        //joi the id car in isAdminOrBizOwnerMW
+        //joi the id car in isAdminOrisSubscriptionOwnerMw
         const deletedCar = await varQueriesModel.deleteVAR(req.params.id);
         if (!deletedCar) throw new CustomError("Sorry ,car not found in database !");
         res.json(deletedCar);

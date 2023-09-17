@@ -155,7 +155,7 @@ router.patch("/:id", tokenMw, registeredUserMw, async (req, res) => {
         if (!validateID) throw new CustomError("object-id is not a valid MongodbID");
         const userFromDB = await userQueriesModel.getUserById(req.params.id);
         if (!userFromDB) throw new CustomError("Sorry ,user not found in database !");
-        userFromDB.isBusiness = !userFromDB.isBusiness;
+        userFromDB.isSubscription = !userFromDB.isSubscription;
         await userQueriesModel.findByIdAndUpdate(req.params.id, userFromDB);
         res.json(userFromDB);
     } catch (err) {

@@ -15,7 +15,7 @@ const registerSchema = Joi.object({
     .regex(
       new RegExp(/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/)
     )
-    .min(6).max(256).allow(""),
+    .min(6).max(256).required(),
   password: Joi.string()
     .regex(
       new RegExp(
@@ -24,11 +24,13 @@ const registerSchema = Joi.object({
     )
     .min(8).max(1024).required(),
   image: Joi.object().keys({
-    url: Joi.string().regex(
-      new RegExp(
-        /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/
-      )
-    ),
+    url: Joi.string()
+    // .regex(
+    //   new RegExp(
+    //     /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/
+    //   )
+    // )
+    ,
     alt: Joi.string().min(2).max(256),
   }),
   address: Joi.object()
