@@ -1,0 +1,3 @@
+2024-02-02 12:10:11.389Z 401 GET http://localhost:8181/api/users/65071b54d2949534b4819f09 Unauthorized
+2024-02-02 12:10:32.425Z 401 GET http://localhost:8181/api/users/65071b54d2949534b4819f09 Unauthorized
+2024-02-02 12:12:36.108Z 401 GET http://localhost:8181/api/cars/search/?fromYear=1900&toYear=2099&FromKm=0&toKm=0&fromPrvOwn=0&toPrvOwn=0 Unauthorized

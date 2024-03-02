@@ -88,8 +88,8 @@ router.put("/:id", tokenMw, isAdminMW, async (req, res) => {
     }
 });
 
-//http://localhost:8181/api/cars/:id v
-router.patch("/:id", tokenMw, async (req, res) => {
+//http://localhost:8181/api/cars/car-like/:id v
+router.patch("/car-like/:id", tokenMw, async (req, res) => {
     try {
         const validateID = isValidObjectId(req.params.id);
         if (!validateID) throw new CustomError("object-id is not a valid MongodbID");
